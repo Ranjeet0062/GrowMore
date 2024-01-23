@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const coursesSechma = mongoose.Schema(
+const userSechma = mongoose.Schema(
     {
         firstName:{
             type:String,
@@ -20,8 +20,8 @@ const coursesSechma = mongoose.Schema(
             type:String,
             required:true,
         },
-        profile:{
-            type:mongoose.Schema.type.ObjectId,
+        additionalDetails:{
+            type:mongoose.Schema.Types.ObjectId,
             ref:"Profile"
         },
         active:{
@@ -44,7 +44,14 @@ const coursesSechma = mongoose.Schema(
 				ref: "courseProgress",
 			},
 		],
+        image:{
+            type:String
+        },
+        accountType:{
+            type:String,
+            required:true
+        }
 
     },{timestamps:true}
 )
-module.exports = mongoose.model("Course", coursesSechma);
+module.exports = mongoose.model("User", userSechma);

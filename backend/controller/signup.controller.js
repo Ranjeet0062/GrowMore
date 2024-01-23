@@ -1,11 +1,11 @@
 const bcrypt = require("bcrypt");
-const User = require("../models/User");
-const OTP = require("../models/OTP");
+const User = require("../model/user.model");
+const OTP = require("../model/OTP.model");
 const jwt = require("jsonwebtoken");
 const otpGenerator = require("otp-generator");
 const mailSender = require("../utils/mailSender");
-const { passwordUpdated } = require("../mail/templates/passwordUpdate");
-const Profile = require("../models/Profile");
+// const { passwordUpdated } = require("../mail/templates/passwordUpdate");
+const Profile = require("../model/profile.model");
 require("dotenv").config();
 exports.signup = async (req, res) => {
 	try {
@@ -123,7 +123,7 @@ exports.login = async (req, res) => {
 		}
 
 		// Find user with provided email
-		const user = await User.findOne({ email }).populate("profile");
+		const user = await User.findOne({ email }).populate("additionalDetails");
 
 		// If user not found with provided email
 		if (!user) {
@@ -201,11 +201,11 @@ exports.sendotp = async (req, res) => {
 		console.log("Result is Generate OTP Func");
 		console.log("OTP", otp);
 		console.log("Result", result);
-		while (result) {
-			otp = otpGenerator.generate(6, {
-				upperCaseAlphabets: false,
-			});
-		}
+		// while (result) {
+		// 	otp = otpGenerator.generate(6, {
+		// 		upperCaseAlphabets: false,
+		// 	});
+		// }
 		const otpPayload = { email, otp };
 		const otpBody = await OTP.create(otpPayload);
 		console.log("OTP Body", otpBody);
@@ -224,6 +224,7 @@ exports.sendotp = async (req, res) => {
 exports.changePassword = async (req, res) => {
 	try {
 		// Get user data from req.user
+		console.log("req.user",res.user)
 		const userDetails = await User.findById(req.user.id);
 
 		// Get old password, new password, and confirm new password from req.body
@@ -259,24 +260,24 @@ exports.changePassword = async (req, res) => {
 		);
 
 		// Send notification email
-		try {
-			const emailResponse = await mailSender(
-				updatedUserDetails.email,
-				passwordUpdated(
-					updatedUserDetails.email,
-					`Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
-				)
-			);
-			console.log("Email sent successfully:", emailResponse.response);
-		} catch (error) {
-			// If there's an error sending the email, log the error and return a 500 (Internal Server Error) error
-			console.error("Error occurred while sending email:", error);
-			return res.status(500).json({
-				success: false,
-				message: "Error occurred while sending email",
-				error: error.message,
-			});
-		}
+		// try {
+		// 	const emailResponse = await mailSender(
+		// 		updatedUserDetails.email,
+		// 		passwordUpdated(
+		// 			updatedUserDetails.email,
+		// 			`Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
+		// 		)
+		// 	);
+		// 	console.log("Email sent successfully:", emailResponse.response);
+		// } catch (error) {
+		// 	// If there's an error sending the email, log the error and return a 500 (Internal Server Error) error
+		// 	console.error("Error occurred while sending email:", error);
+		// 	return res.status(500).json({
+		// 		success: false,
+		// 		message: "Error occurred while sending email",
+		// 		error: error.message,
+		// 	});
+		// }
 
 		// Return success response
 		return res

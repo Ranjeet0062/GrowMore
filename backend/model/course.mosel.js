@@ -10,7 +10,7 @@ const courseSchema=new mongoose.Schema(
             required:true,
         },
         instructor:{
-            type:mongoose.Schema.type.ObjectId,
+            type:mongoose.Schema.Types.ObjectId,
             ref:"User",
         },
         whatyouWillLearn:{
@@ -18,14 +18,14 @@ const courseSchema=new mongoose.Schema(
         },
         courseContent:[
             {
-                type:mongoose.Schema.type.ObjectId,
+                type:mongoose.Schema.Types.ObjectId,
                 ref:"Section",
 
             }
         ],
         ratingAndReviews:[
             {
-                type:mongoose.Schema.type.ObjectId,
+                type:mongoose.Schema.Types.ObjectId,
                 ref:"RatingAndReview"
             }
         ],
@@ -33,7 +33,7 @@ const courseSchema=new mongoose.Schema(
             type:Number,
             required:true
         },
-        thumnail:{
+        thumbnail:{
             type:String,
             
         },
@@ -61,3 +61,4 @@ const courseSchema=new mongoose.Schema(
 
     },{timestamps:true}
 )
+module.exports=mongoose.model("Course",courseSchema)
