@@ -5,9 +5,9 @@ const SubSection = require("../model/subsection.model")
 const User = require("../model/user.model")
 const { uploadImageToCloudinary } = require("../utils/imageUploader")
 const CourseProgress = require("../model/courseprogress.model")
-// const { convertSecondsToDuration } = require("../utils/secToDuration")
+const { convertSecondsToDuration } = require("../utils/secToDuration")
 
-exports.createCourse = async (req, res) => {
+  exports.createCourse = async (req, res) => {
     try {
       // Get user ID from request object
       const userId = req.user.id
@@ -130,17 +130,12 @@ exports.createCourse = async (req, res) => {
     }
   }
   exports.getAllCourses = async (req, res) => {
+
     try {
+      console.log("inside getAllCourses");
       const allCourses = await Course.find(
-        { status: "Published" },
-        {
-          courseName: true,
-          price: true,
-          thumbnail: true,
-          instructor: true,
-          ratingAndReviews: true,
-          studentsEnrolled: true,
-        }
+        // { status: "Published" },
+       {}
       )
         .populate("instructor")
         .exec()
@@ -158,7 +153,6 @@ exports.createCourse = async (req, res) => {
       })
     }
   }
-  
   exports.getCourseDetails = async (req, res) => {
     try {
       const { courseId } = req.body
@@ -172,7 +166,7 @@ exports.createCourse = async (req, res) => {
           },
         })
         .populate("category")
-        .populate("ratingAndReviews")
+        // .populate("ratingAndReviews")
         .populate({
           path: "courseContent",
           populate: {
@@ -217,6 +211,49 @@ exports.createCourse = async (req, res) => {
       return res.status(500).json({
         success: false,
         message: error.message,
+      })
+    }
+  }
+  exports.getFullCourseDetails=async(req,res)=>{
+    try{
+      const {courseId}=req.body
+      const userid=req.user.id;
+      console.log("inside getAllCourses");
+      const courseDetails = await Course.findById(
+        // { status: "Published" },
+        courseId
+      )
+        .populate("instructor")
+        .exec()
+        let courseProgressCount = await CourseProgress.findOne({
+          courseID: courseId,
+          userId: userid,
+        })
+        let totalDurationInSeconds = 0
+        courseDetails.courseContent?.forEach((content) => {
+          content.subSection?.forEach((subSection) => {
+            const timeDurationInSeconds = parseInt(subSection.timeDuration)
+            totalDurationInSeconds += timeDurationInSeconds
+          })
+        })
+    
+        const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
+    
+        return res.status(200).json({
+          success: true,
+          data: {
+            courseDetails,
+            totalDuration,
+            completedVideos: courseProgressCount?.completedVideos
+              ?( courseProgressCount?.completedVideos)
+              : ([]),
+          },
+        })
+
+    }catch(error){
+      return res.status(500).json({
+        success:false,
+        message:`something went wrong while getFullCourseDetail and error is ${error}`
       })
     }
   }
