@@ -3,6 +3,8 @@ const database=require("./config/database.js");
 const router=require("./routes/user.js")
 const categoryrouter=require("./routes/category.js")
 const courserouter=require("./routes/caurses.js")
+const profilerouter=require("./routes/profile.js")
+const secctionrouter=require("./routes/section.js")
 const fileUpload = require("express-fileupload");
 const cookieParser=require("cookie-parser")
 const {cloudinaryConnect}=require("./config/cloudnary.js")
@@ -21,7 +23,8 @@ cloudinaryConnect();
 app.use("/user/api",router);
 app.use("/category/api",categoryrouter)
 app.use("/course/api",courserouter)
-
+app.use("/profile/api",profilerouter)
+app.use("/section",secctionrouter)
 app.get("/",(req,res)=>{
     res.send("hello");
 })
