@@ -57,7 +57,7 @@ exports.updateSection = async (req, res) => {
 	try {
 		const { sectionName, sectionId,courseId } = req.body;
 		const section = await Section.findByIdAndUpdate(
-			sectionId,
+				sectionId,
 			{ sectionName },
 			{ new: true }
 		);
@@ -96,7 +96,6 @@ exports.deleteSection = async (req, res) => {
 			}
 		})
 		const section = await Section.findById(sectionId);
-		console.log(sectionId, courseId);
 		if(!section) {
 			return res.status(404).json({
 				success:false,

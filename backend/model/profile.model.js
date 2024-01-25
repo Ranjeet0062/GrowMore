@@ -16,9 +16,6 @@ const profileSchema = new mongoose.Schema({
 		type: Number,
 		trim: true,
 	},
-    profilepic:{
-        type:String,
-    }
 });
 
 // Export the Profile model

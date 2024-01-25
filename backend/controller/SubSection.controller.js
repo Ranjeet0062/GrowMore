@@ -5,7 +5,7 @@ require("dotenv").config()
 exports.createSubSection=async(req,res)=>{
     try{
         const {sectionId,title,description}=req.body;
-        const video=req.file.videourl;
+        const video=req.files.videourl;
         if (!sectionId || !title || !description || !video) {
             return res
               .status(404)
@@ -16,7 +16,7 @@ exports.createSubSection=async(req,res)=>{
             title,
             description,
             timeDuration:`${videouploaded.duration}`,
-            video:`${videouploaded.secure_url}`
+            videoUrl:`${videouploaded.secure_url}`
           })
           const updatedsection=await Section.findByIdAndUpdate(sectionId,
             { $push: { subSection: subsection._id } },

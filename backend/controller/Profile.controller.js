@@ -6,7 +6,7 @@ const { uploadImageToCloudinary } = require("../utils/imageUploader");
 const { convertSecondsToDuration } = require("../utils/secToDuration");
 exports.updateProfile = async (req, res) => {
 	try {
-		const { dateOfBirth = "", about = "", contactNumber } = req.body;
+		const { dateOfBirth = null, about = null, contactNumber,gender=null} = req.body;
 		const id = req.user.id;
 
 		// Find the profile by id
@@ -17,7 +17,7 @@ exports.updateProfile = async (req, res) => {
 		profile.dateOfBirth = dateOfBirth;
 		profile.about = about;
 		profile.contactNumber = contactNumber;
-
+		profile.gender=gender;
 		// Save the updated profile
 		await profile.save();
 
@@ -34,13 +34,13 @@ exports.updateProfile = async (req, res) => {
 		});
 	}
 };
-
-
 exports.getAllUserDetails = async (req, res) => {
 	try {
+		console.log("user of req",req.user)
 		const id = req.user.id;
 		const userDetails = await User.findById(id)
 			.populate("additionalDetails")
+			.populate("courses")
 			.exec();
 		console.log(userDetails);
 		res.status(200).json({
@@ -55,7 +55,6 @@ exports.getAllUserDetails = async (req, res) => {
 		});
 	}
 };
-
 exports.updateDisplayPicture = async (req, res) => {
     try {
       const displayPicture = req.files.displayPicture
@@ -84,7 +83,6 @@ exports.updateDisplayPicture = async (req, res) => {
       })
     }
 };
-  
 exports.getEnrolledCourses = async (req, res) => {
 	try {
 	  const userId = req.user.id
@@ -151,7 +149,6 @@ exports.getEnrolledCourses = async (req, res) => {
 	  })
 	}
 }
-
 exports.instructorDashboard = async(req, res) => {
 	try{
 		const courseDetails = await Course.find({instructor:req.user.id});
