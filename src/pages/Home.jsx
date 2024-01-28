@@ -7,7 +7,7 @@ import Banner from "../assets/Images/banner.mp4"
 import CodeBlocks from "../componet/CodeBlocks"
 import Comparewithother from "../assets/Images/Compare_with_others.png"
 import Knowyourprogrss from "../assets/Images/Know_your_progress.png"
-
+import instructor from "../assets/Images/Instructor.png"
 import Experience from "../smallcomponets/Experience"
 import Timelineimage from "../assets/Images/TimelineImage.png"
 function Home() {
@@ -16,16 +16,15 @@ function Home() {
             {/*Section1  */}
             <div className='relative mx-auto flex flex-col w-11/12 max-w-maxContent items-center text-white justify-between'>
 
-                <Link to={"/signup"}>
-                    <div className=' group mt-16 p-1 mx-auto rounded-full bg-richblack-800 font-bold text-richblack-200transition-all duration-200 hover:scale-95 w-fit '>
+
+                <div className=' group mt-16 p-1 mx-auto rounded-full bg-richblack-800 font-bold text-richblack-200transition-all duration-200 hover:scale-95 w-fit '>
+                    <Link to={"/signup"}>
                         <div className='flex flex-row items-center gap-2 rounded-full px-10 py-[5px] transition-all duration-20 group-hover:bg-richblack-900'>
                             <p className=' text-red-800'>Become an Instructor</p>
                             <FaArrowRight />
                         </div>
-                    </div>
-
-                </Link>
-
+                    </Link>
+                </div>
                 <div className='text-center text-4xl font-semibold mt-7'>
                     Empower Your Future with
                     <HighlightText text={"Coding Skills"} />
@@ -197,6 +196,27 @@ function Home() {
                         </CTAButton >
                     </div>
 
+                </div>
+            </div>
+            {/* section 3 */}
+            <div className=' w-[100%] mt-28'>
+                <div className='relative mx-auto flex  w-11/12 max-w-maxContent items-center text-white justify-between gap-5'>
+                    <div className='w-[50%]'>
+                        <img src={instructor} alt="instructor" />
+                    </div>
+                    <div className='w-[50%] flex flex-col gap-4 '>
+                        <h1 className=' font-semibold text-4xl'>Become an <HighlightText text={"Instructor"} /></h1>
+                        <div>
+                            <p className=' font-medium text-xl opacity-65'>
+                                Instructors from around the world teach millions of students on StudyNotion. We provide the tools and skills to teach what you love.
+                            </p>
+                        </div>
+                        <div className='w-[200px]'>
+                            <CTAButton active={true} linkto={"/signup"}>
+                                Start Learning today
+                            </CTAButton>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
