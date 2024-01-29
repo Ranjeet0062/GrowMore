@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
+import signup from "../../assets/Images/signup.webp"
+import instructor from "../../assets/Images/Instructor.png"
 
-export default function SignupForm() {
+export default function SignupForm({setsignupphoto}) {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
@@ -10,8 +12,8 @@ export default function SignupForm() {
     return (
         <div>
             <div className=' pr-3 bg-richblack-800  pl-3 pb-2 pt-2 rounded-full w-[50%] flex justify-evenly h-[70px] font-semibold text-lg shadow-md '>
-                <button onClick={() => setaccountType("Student")} className={accountType === "Student" ? ' border border-black bg-black  rounded-full  w-[50%] flex items-center justify-center' : " lex items-center justify-center w-[50%]"}>Student</button>
-                <button onClick={() => setaccountType("Instructor")} className={accountType === "Instructor" ? 'border border-black bg-black  rounded-full  w-[50%] flex items-center justify-center ' : " lex items-center justify-center w-[50%]"}>Instructor</button>
+                <button onClick={() => {setaccountType("Student"); setsignupphoto(signup)}} className={accountType === "Student" ? ' border border-black bg-black  rounded-full  w-[50%] flex items-center justify-center' : " lex items-center justify-center w-[50%]"}>Student</button>
+                <button onClick={() => {setaccountType("Instructor");setsignupphoto(instructor)}} className={accountType === "Instructor" ? 'border border-black bg-black  rounded-full  w-[50%] flex items-center justify-center ' : " lex items-center justify-center w-[50%]"}>Instructor</button>
             </div>
             <form className="flex flex-col w-full gap-y-4 mt-6" onSubmit={(e) => {
                 e.preventDefault();
