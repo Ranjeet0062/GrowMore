@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import logoFullLight from "../assets/Logo/Logo-Full-Light.png"
 import { Link, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 function Navbar() {
     const locaation = useLocation();
-    const { token } = useSelector((state) => state.auth);
-    const loading = false
+    const { token,loading } = useSelector((state) => state.auth);
+    // const loading = false
+    const [subLinks,setsubLink]=useState([])
     const navlink = [
         {
             title: "Home",
@@ -25,7 +27,14 @@ function Navbar() {
         }
 
     ]
-    const subLinks = ["mernstack", "webdev", "python"]
+    // const subLinks = ["mernstack", "webdev", "python"]
+    useEffect(()=>{
+        axios.get("http://localhost:3000/category/api/showAllCategories").then((res)=>{
+            setsubLink(res.data.data)
+        }).catch((error)=>{
+            console.log("error",error)
+        })
+    },[])
     return (
         <div className='w-[100%] h-[60px] text-white border-b-2 flex items-center justify-center '>
             <nav className='flex justify-around items-center w-[100%]'>
@@ -35,7 +44,7 @@ function Navbar() {
                     </Link>
                 </div>
                 <div className=' navigaton'>
-                    <ul className='flex gap-3'>
+                    <ul className='flex gap-3 font-semibold'>
                         {
                             navlink.map((navitem, index) => {
                                 return <li key={index}>
@@ -52,14 +61,14 @@ function Navbar() {
                                                             <>
                                                                 {subLinks?.map((subLink, i) => (
                                                                     <Link
-                                                                        to={`/catalog/${subLink
+                                                                        to={`/catalog/${subLink.name
                                                                             .split(" ")
                                                                             .join("-")
                                                                             .toLowerCase()}`}
                                                                         className="rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50 text-black"
                                                                         key={i}
                                                                     >
-                                                                        <p>{subLink}</p>
+                                                                        <p>{subLink.name}</p>
                                                                     </Link>
                                                                 ))}
                                                             </>

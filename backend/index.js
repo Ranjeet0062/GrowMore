@@ -6,11 +6,12 @@ const courserouter=require("./routes/caurses.js")
 const profilerouter=require("./routes/profile.js")
 const secctionrouter=require("./routes/section.js")
 const ratingandraviewrouter=require("./routes/ratingandriew.js")
-
+const cors = require('cors');
 const fileUpload = require("express-fileupload");
 const cookieParser=require("cookie-parser")
 const {cloudinaryConnect}=require("./config/cloudnary.js")
 const app=express();
+app.use(cors({ origin: 'http://localhost:5173' }));
 app.use(express.json());
 app.use(cookieParser());
 database.connect();
