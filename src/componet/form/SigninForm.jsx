@@ -2,13 +2,24 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import {AiOutlineEye,AiOutlineEyeInvisible} from "react-icons/ai"
-export default function LoginForm({ setisLoggedin }) {
+import { userlogin } from '../../services/opration/authApi';
+import { useDispatch } from 'react-redux';
+export default function LoginForm() {
+    const dispatch=useDispatch();
     const navigate = useNavigate()
     const [showPassword,setShowPassword]=useState(false)
+    const [formData,setFromData]=useState({email:"",password:""})
+
     function submitHandler(e) {
         e.preventDefault();
-        setisLoggedin(true);
+        dispatch(userlogin(formData.email,formData.password,navigate));
     }
+    const hendaleOnchange=(e)=>{
+     setFromData((prev)=>({
+         ...prev,[e.target.name]:e.target.value
+     }))
+    }
+    
     return (
         <form
             onSubmit={submitHandler}
@@ -23,9 +34,9 @@ export default function LoginForm({ setisLoggedin }) {
                 <input
                     type="email"
                     required
-                    // value={formData.email}
+                    value={formData.email}
                     placeholder="Enter your email address"
-                    // onChange={changeHandler}
+                    onChange={hendaleOnchange}
                     name="email"
                     className="rounded-[0.75rem] bg-richblack-800  w-full p-[12px] text-richblack-5"
                 />
@@ -40,9 +51,9 @@ export default function LoginForm({ setisLoggedin }) {
                 <input
                 type={showPassword?"text":"password"}
                     required
-                    // value={formData.password}
+                    value={formData.password}
                     placeholder="Enter Password"
-                    // onChange={changeHandler}
+                    onChange={hendaleOnchange}
                     onBlur={()=>{setShowPassword(false)}}
                     name="password"
                     className="bg-richblack-800 rounded-[0.75rem] w-full p-[12px] text-richblack-5"

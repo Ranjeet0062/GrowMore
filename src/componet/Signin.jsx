@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SigninForm from "../componet/form/SigninForm"
 import signin from "../assets/Images/login.webp"
 import HighlightText from "./HighlightText"
+
+
 export default function Login() {
+
+   
     return (
         <div className=' w-11/12 flex mx-auto gap-6 text-white justify-evenly mt-20 mb-20'>
             <div className='w-[50%] max-w-[450px]'>
