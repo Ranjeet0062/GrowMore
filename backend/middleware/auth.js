@@ -2,6 +2,7 @@ require("dotenv").config();
 const jwt=require("jsonwebtoken")
 exports.auth = (req, res, next) => {
   try {
+    console.log("inside auth middleware")
     const token = req.body.token || req.cookies.token;
     if (!token) {
       return res.status(401).json({

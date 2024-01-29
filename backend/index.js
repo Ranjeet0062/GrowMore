@@ -11,7 +11,7 @@ const fileUpload = require("express-fileupload");
 const cookieParser=require("cookie-parser")
 const {cloudinaryConnect}=require("./config/cloudnary.js")
 const app=express();
-app.use(cors({ origin: 'http://localhost:5173' }));
+app.use(cors({credentials: true, origin: 'http://localhost:5173' }));
 app.use(express.json());
 app.use(cookieParser());
 database.connect();
