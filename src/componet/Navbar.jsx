@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 function Navbar() {
     const locaation = useLocation();
-    const { token,loading } = useSelector((state) => state.auth);
     // const loading = false
     const [subLinks,setsubLink]=useState([])
     const navlink = [
@@ -27,8 +26,12 @@ function Navbar() {
         }
 
     ]
+    const { token,loading } = useSelector((state) => state.auth);
+
+    console.log("token is in navbaar",token)
     // const subLinks = ["mernstack", "webdev", "python"]
     useEffect(()=>{
+        
         axios.get("http://localhost:3000/category/api/showAllCategories").then((res)=>{
             setsubLink(res.data.data)
         }).catch((error)=>{

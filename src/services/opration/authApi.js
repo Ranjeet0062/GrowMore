@@ -9,13 +9,13 @@ export const userlogin = (email, password, navigate) => {
         dispatch(setLoading(true));
         const toastId = toast.loading("Loading....");
         try {
-            axios.post(`${login}`, { email, password }, { withCredentials: true })
+           await axios.post(`${login}`, { email, password }, { withCredentials: true })
                 .then((res) => {
                     toast.success("Login  successfully")
                     dispatch(setToken(res.data.user.token))
-                    localStorage.setItem("token", JSON.stringify(response.data.token))
-                    localStorage.setItem("user", JSON.stringify(response.data.user))
-                    navigate("/dashboard/my-profile")
+                    localStorage.setItem("token", JSON.stringify(res.data.token))
+                    localStorage.setItem("user", JSON.stringify(res.data.user))
+                    navigate("/")
                 })
         } catch (error) {
             console.log("LOGIN API ERROR............", error)
@@ -32,7 +32,7 @@ export const sendOtp = (email, navigate) => {
         const toastId = toast.loading("Loading...");
         try {
             console.log("endotp url is",sendotp)
-            axios.post(`${sendotp}`, { email }, { withCredentials: true })
+          await axios.post(`${sendotp}`, { email }, { withCredentials: true })
                 .then((res) => {
                     toast.success("otp-sent")
                     navigate("/verify-email");
@@ -64,7 +64,7 @@ export const signUp = (
         const toastId=toast.loading("Loading...");
         dispatch(setLoading(true));
         try{
-            axios.post(`${signup}`, {
+          await  axios.post(`${signup}`, {
                 accountType,
                 firstName,
                 lastName,

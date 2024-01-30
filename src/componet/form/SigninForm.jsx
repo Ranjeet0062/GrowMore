@@ -64,7 +64,10 @@ export default function LoginForm() {
                 </span>
 
                 <Link to="#">
-                    <p className="text-xs mt-1 text-blue-100 max-w-max ml-auto">Forgot Password</p>
+                    <p className="text-base mt-1 text-blue-100 max-w-max ml-auto">Forgot Password</p>
+                </Link>
+                <Link to="/signup">
+                    <p className="text-base mt-1 text-blue-100 max-w-max ml-auto">Register Here</p>
                 </Link>
             </label>
 
