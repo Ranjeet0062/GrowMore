@@ -50,6 +50,12 @@ const userSechma = mongoose.Schema(
         accountType:{
             type:String,
             required:true
+        },
+        resetPasswordToken:{
+            type:String,
+        },
+        tokenExpire:{
+            typre:Date
         }
 
     },{timestamps:true}
