@@ -11,6 +11,7 @@ import instructor from "../assets/Images/Instructor.png"
 import Experience from "../smallcomponets/Experience"
 import Timelineimage from "../assets/Images/TimelineImage.png"
 import Navbar from '../componet/Navbar'
+import Footer from "../componet/Footer"
 function Home() {
     return (
         <div>
@@ -223,6 +224,7 @@ function Home() {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div>
     )
 }

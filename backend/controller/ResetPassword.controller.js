@@ -17,7 +17,7 @@ exports.sendresetPsswordToken = async (req, res) => {
             { email },
             { resetPasswordToken: token, tokenExpire: Date.now() + 360000 },
             { new: true })
-        const url = `http://localhost:3000/update-password/${token}`
+        const url = `http://localhost:5173/update-password/${token}`
         await mailSender(
             email,
             "Password Rest",

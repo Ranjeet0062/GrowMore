@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast"
 import { setLoading, setToken } from "../../redux/slices/auth.slice"
 import axios from "axios";
 import { useSelector } from "react-redux";
-const { login, signup,sendotp } = authapi;
+const { login, signup,sendotp ,resetpassword} = authapi;
 export const userlogin = (email, password, navigate) => {
     return async (dispatch) => {
         dispatch(setLoading(true));
@@ -85,5 +85,26 @@ export const signUp = (
         }
         dispatch(setLoading(false));
         toast.dismiss(toastId);
+    }
+}
+export const sendrestPassword=(email,sentEmail)=>{
+    return async(dispatch)=>{
+        const toastId=toast.loading("Loading...");
+        dispatch(setLoading(true));
+        try{
+            await axios.post(`${resetpassword}`,{email},{withCredentials:true})
+            .then((res)=>{
+                sentEmail(true);
+                toast.success("Email sent successfully")
+            }).catch((error)=>{
+                toast.error(error);
+                console.log("something went wrongwhile axios request of reset token")
+            })
+        }catch(error){
+            console.log("error accure while sending resetpassword link")
+            toast.error(error);
+        }
+        toast.dismiss(toastId)
+        dispatch(setLoading(false));
     }
 }
