@@ -15,7 +15,7 @@ exports.sendresetPsswordToken = async (req, res) => {
         const token = crypto.randomBytes(20).toString("hex");
         const updateuser = await User.findOneAndUpdate(
             { email },
-            { resetPasswordToken: token, tokenExpire: Date.now() + 360000 },
+            { resetPasswordToken: token, tokenExpire: Date.now() + 30000 },
             { new: true })
         const url = `http://localhost:5173/update-password/${token}`
         await mailSender(
@@ -37,6 +37,7 @@ exports.sendresetPsswordToken = async (req, res) => {
 }
 exports.restPassword=async(req,res)=>{
     try{
+        console.log(req.body)
         const {token,password,confirmpassword}=req.body;
         if(!password&&!confirmpassword){
             return res.status(404).json({
@@ -58,7 +59,7 @@ exports.restPassword=async(req,res)=>{
             })
         }
         if(user.tokenExpire<Date.now()){
-            return res.status(403).json({
+            return res.status(204).json({
                 success:false,
                 message:"Tonek Expired Please regenerate new token"
             })

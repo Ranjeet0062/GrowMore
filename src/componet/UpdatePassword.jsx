@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import {IoIosArrowRoundBack } from "react-icons/io"
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import {setLoading} from "../redux/slices/auth.slice"
 import { useDispatch } from 'react-redux';
 function UpdatePassword() {
-    const token=useParams("id")
+    // const token=useParams("id")
+    const token=useLocation().pathname.split("/")[2];
+    console.log(token);
     const [password,setpassword]=useState("");
     const [confirmpassword,setconfirmpassword]=useState("");
     const dispatch=useDispatch()
@@ -17,9 +19,10 @@ function UpdatePassword() {
        await axios.put("http://localhost:3000/user/api/restPassword",
         {password,confirmpassword,token},{withCredentials:true})
         .then((res)=>{
-            toast.success("Password updated")
+            res.data.success?( toast.success("Password updated")):( toast.error("token expire"))
+           
         }).catch((error)=>{
-            toast.failed(error);
+            toast.error(error);
             console.log("error",error)
         })
         toast.dismiss(toastId);
@@ -30,7 +33,7 @@ function UpdatePassword() {
         <div className='text-white'>
             <form action="" onSubmit={hendalOnsubmit}>
             <div className='flex gap-4  flex-col max-w-[450px] h-[500px] p-12 mx-auto'>
-                <h className=" font-bold text-3xl">Choose new Password</h>
+                <h1 className=" font-bold text-3xl">Choose new Password</h1>
                 <p className=' font-medium '>
                 Almost done. Enter your new password and youre all set
                 </p>
