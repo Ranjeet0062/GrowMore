@@ -7,6 +7,7 @@ import Signin from "./componet/Signin"
 import { Routes, Route } from "react-router-dom"
 import ResetPassword from "./componet/ResetPassword"
 import UpdatePassword from "./componet/UpdatePassword"
+import ContactUS from "./pages/ContactUS"
 function App() {
 
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/verify-email" element={<VerifyEmail />}/>
         <Route path="/forget-password" element={<ResetPassword/>} />
         <Route path="/update-password/:id" element={<UpdatePassword/>}/>
+        <Route path="/contact" element={<ContactUS/>}/>
       </Routes>
     </div>
   )
