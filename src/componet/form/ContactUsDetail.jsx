@@ -4,7 +4,7 @@ import { FaEarthAfrica } from "react-icons/fa6";
 import { LuPhoneCall } from "react-icons/lu";
 function ContactUsDetail() {
     return (
-        <div className=' flex flex-col gap-3 max-w-[450px]'>
+        <div className=' flex  flex-col gap-3 max-w-[450px] bg-richblack-400 border border-richblack-500 h-[400px] p-4 rounded-2xl'>
             <div className='flex gap-2 justify-start place-items-baseline '>
                 <IoChatbubblesOutline />
                 <div>

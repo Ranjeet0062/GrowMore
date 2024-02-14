@@ -100,7 +100,7 @@ function Navbar() {
                             <Link to="/login">
                                 <button key="login" className=' pr-3 pl-3 pt-2 pb-2 border border-white rounded-md '>Login</button>
                             </Link>
-                            <Link to="signup">
+                            <Link to="/signup">
                                 <button key="signup" className='pr-3 pl-3 pt-2 pb-2 border border-white rounded-md '>Signup</button>
                             </Link>
                         </div>
