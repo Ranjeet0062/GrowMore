@@ -3,10 +3,12 @@ import logoFullLight from "../assets/Logo/Logo-Full-Light.png"
 import { Link, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import ProfileDropdown from "./ProfileDropdown"
 function Navbar() {
     const locaation = useLocation();
     // const loading = false
     const [subLinks,setsubLink]=useState([])
+
     const navlink = [
         {
             title: "Home",
@@ -93,8 +95,8 @@ function Navbar() {
                     </ul>
                 </div>
                 <div className='profileorbutton'>
-                    {token ? (
-                        <div key="dashboard">Dashboard</div>
+                    {token !== null ? (
+                        <div key="dashboard"><ProfileDropdown/></div>
                     ) : (
                         <div key="login-signup" className='flex gap-3'>
                             <Link to="/login">

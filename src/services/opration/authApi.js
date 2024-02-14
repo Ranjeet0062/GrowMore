@@ -3,6 +3,7 @@ import { toast } from "react-hot-toast"
 import { setLoading, setToken } from "../../redux/slices/auth.slice"
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { setUser } from "../../redux/slices/profile.slice";
 const { login, signup,sendotp ,resetpassword} = authapi;
 export const userlogin = (email, password, navigate) => {
     return async (dispatch) => {
@@ -13,9 +14,10 @@ export const userlogin = (email, password, navigate) => {
                 .then((res) => {
                     toast.success("Login  successfully")
                     dispatch(setToken(res.data.user.token))
+                    dispatch(setUser(res.data.user));
                     localStorage.setItem("token", JSON.stringify(res.data.token))
                     localStorage.setItem("user", JSON.stringify(res.data.user))
-                    navigate("/")
+                    navigate("/dashboard/my-profile")
                 })
         } catch (error) {
             console.log("LOGIN API ERROR............", error)
@@ -108,3 +110,13 @@ export const sendrestPassword=(email,sentEmail)=>{
         dispatch(setLoading(false));
     }
 }
+export function logout(navigate) {
+    return (dispatch) => {
+      dispatch(setToken(null))
+      dispatch(setUser(null))
+      localStorage.removeItem("token")
+      localStorage.removeItem("user")
+      toast.success("Logged Out")
+      navigate("/")
+    }
+  }

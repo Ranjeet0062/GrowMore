@@ -15,7 +15,7 @@ import Footer from "../componet/Footer"
 function Home() {
     return (
         <div>
-            <Navbar />
+        
             <div className='mb-10'>
                 {/*Section1  */}
                 <div className='relative mx-auto flex flex-col w-11/12 max-w-maxContent items-center text-white justify-between'>
