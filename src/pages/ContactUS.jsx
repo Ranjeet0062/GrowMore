@@ -7,7 +7,7 @@ function ContactUS() {
   return (
     <div className='text-white'>
       <div className='max-w-[1200px] mt-[30px] mb-[30px] flex flex-col md:flex-row  justify-between mx-auto '>
-        <ContactUsDetail />
+       <ContactUsDetail/>
         <ContactForm />
       </div>
       <Footer />

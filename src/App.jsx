@@ -11,7 +11,6 @@ import ContactUS from "./pages/ContactUS"
 import Dashbord from "./componet/dashbord/Dashbord"
 import Myprofile from "./componet/Myprofile"
 import Enrolledcourse from "./componet/Enrolledcourse"
-import SettingPage from "./componet/Setting/SettingPage"
 function App() {
 
   return (
@@ -29,7 +28,6 @@ function App() {
         <Route element={<Dashbord/>}>
           <Route path="/dashboard/my-profile" element={<Myprofile/>}/>
           <Route path="/dashboard/enrolled-courses" element={<Enrolledcourse/>}/>
-          <Route path="/dashboard/settings" element={<SettingPage/>}/>
         </Route>
       </Routes>
     </div>

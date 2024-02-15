@@ -4,7 +4,6 @@ import * as Icons from "react-icons/vsc"
 function SidebarLinkItem({ link }) {
     const Icon = Icons[link.icon]
     const locaation=useLocation()
-    console.log("link....",link)
     return (
         <NavLink to={link.path}  className={`relative px-8 py-2 text-sm font-medium ${
             link.path===locaation.pathname
