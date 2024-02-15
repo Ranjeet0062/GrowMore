@@ -2,8 +2,9 @@ require("dotenv").config();
 const jwt=require("jsonwebtoken")
 exports.auth = (req, res, next) => {
   try {
-    console.log("inside auth middleware")
-    const token = req.body.token || req.cookies.token;
+    // console.log("inside auth middleware",req.header("Authorization").replace("Bearer ", ""))
+    const token = req.body.token || req.cookies.token|| (req.header("Authorization") || "").replace("Bearer ", "")
+    console.log(typeof token)
     if (!token) {
       return res.status(401).json({
         success: false,
@@ -15,6 +16,7 @@ exports.auth = (req, res, next) => {
 
       req.user = decode;
     } catch (e) {
+      console.log("error wit jwt",e)
       return res.status(401).json({
         success: false,
         message: "token is invalid",
@@ -26,7 +28,7 @@ exports.auth = (req, res, next) => {
     console.log(err);
     return res.status(401).json({
       success: false,
-      message: "Something went wrong while verifying token",
+      message: `Something went wrong while verifying token and error is ${err}`,
     });
   }
 };

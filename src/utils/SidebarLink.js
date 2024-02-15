@@ -3,6 +3,11 @@ export const ACCOUNT_TYPE = {
     INSTRUCTOR: "Instructor",
     ADMIN: "Admin",
   }
+  export const settinglink = {
+    name: "Setting",
+    path: "/dashboard/settings", 
+    icon: "VscSettingsGear "
+  }
 export const SidebarLink= [
     {
       id: 1,
