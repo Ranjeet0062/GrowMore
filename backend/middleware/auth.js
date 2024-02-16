@@ -1,10 +1,10 @@
 require("dotenv").config();
-const jwt = require("jsonwebtoken")
+const jwt=require("jsonwebtoken")
 exports.auth = (req, res, next) => {
   try {
-   
-    const token = req.body.token || req.cookies.token || (req.header("Authorization") || "").replace("Bearer ", "")
-    console.log("printing token",token)
+    // console.log("inside auth middleware",req.header("Authorization").replace("Bearer ", ""))
+    const token = req.body.token || req.cookies.token|| (req.header("Authorization") || "").replace("Bearer ", "")
+    console.log(typeof token)
     if (!token) {
       return res.status(401).json({
         success: false,
@@ -13,80 +13,81 @@ exports.auth = (req, res, next) => {
     }
     try {
       const decode = jwt.verify(token, process.env.JWT_SECRET);
+
       req.user = decode;
-      next();
-    } catch (err) {
-      console.error("JWT Verification Error:", err.message);
+    } catch (e) {
+      console.log("error wit jwt",e)
       return res.status(401).json({
         success: false,
-        message: 'Token is invalid',
+        message: "token is invalid",
       });
     }
 
     next();
   } catch (err) {
+    console.log(err);
     return res.status(401).json({
       success: false,
       message: `Something went wrong while verifying token and error is ${err}`,
     });
   }
 };
-exports.isStudent = (req, res, next) => {
-  try {
-    const role = req.user.accountType
-    if (role === "Student") {
-      next();
-    } else {
+exports.isStudent=(req,res,next)=>{
+  try{
+    const role=req.user.accountType
+    if(role==="Student"){
+        next();
+    }else{
       return res.status(200).json({
-        success: false,
-        message: "this is protected route only for  Student"
+        success:false,
+        message:"this is protected route only for  Student"
       })
     }
-  } catch (error) {
+  }catch(error){
     res.status(500).json({
-      success: false,
-      message: "something went in isStudent middleware",
-      error: error
+      success:false,
+      message:"something went in isStudent middleware",
+      error:error
     })
   }
 }
-exports.isAdmin = (req, res, next) => {
-  try {
-    const role = req.user.accountType
-    console.log("roleeeee", req.user)
-    if (role === "Admin") {
-      next();
-    } else {
+exports.isAdmin=(req,res,next)=>{
+  try{
+    const role=req.user.accountType
+    console.log("roleeeee",req.user)
+    if(role==="Admin"){
+        next();
+    }else{
       return res.status(200).json({
-        success: false,
-        message: "this is protected route only for  Admin"
+        success:false,
+        message:"this is protected route only for  Admin"
       })
     }
-  } catch (error) {
+  }catch(error){
     res.status(500).json({
-      success: false,
-      message: "something went in isAdmin middleware",
-      error: error
+      success:false,
+      message:"something went in isAdmin middleware",
+      error:error
     })
   }
 }
-exports.isInstructer = (req, res, next) => {
-  try {
-    console.log("dghfduchhjh", req.user.accountType)
-    const role = req.user.accountType
-    if (role === "Instructor") {
-      next();
-    } else {
+exports.isInstructer=(req,res,next)=>{
+  try{
+    console.log("dghfduchhjh",req.user.accountType)
+    const role=req.user.accountType
+    if(role==="Instructor"){
+        next();
+    }else{
       return res.status(200).json({
-        success: false,
-        message: "this is protected route only for  Instructer"
+        success:false,
+        message:"this is protected route only for  Instructer"
       })
     }
-  } catch (error) {
+  }catch(error){
     res.status(500).json({
-      success: false,
-      message: "something went in isInstructer middleware",
-      error: error
+      success:false,
+      message:"something went in isInstructer middleware",
+      error:error
     })
   }
 }
