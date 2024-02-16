@@ -8,6 +8,7 @@ function UpdateProfilePhoto() {
     const fileUploaderRef = useRef()
     const { user } = useSelector((state) => state.profile)
     const {token}=useSelector((state)=>state.auth)
+    console.log("token inside profilephoto",token)
     const [File,setFile]=useState(null);
     const [priviewSource,setPreviewSource]=useState(null);
     const [loading, setLoading] = useState(false)
