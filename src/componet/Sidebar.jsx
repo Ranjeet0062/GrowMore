@@ -6,6 +6,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import {VscSettingsGear }from "react-icons/vsc"
 import {LuLogOut } from "react-icons/lu"
+import {logout} from "../services/opration/authApi"
 function Sidebar() {
     const {user}=useSelector((state)=>state.profile);
     const dispatch=useDispatch();

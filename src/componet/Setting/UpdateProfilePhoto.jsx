@@ -7,6 +7,7 @@ function UpdateProfilePhoto() {
     const dispatch=useDispatch()
     const fileUploaderRef = useRef()
     const { user } = useSelector((state) => state.profile)
+    console.log("from updatephoto",user);
     const {token}=useSelector((state)=>state.auth)
     const [File,setFile]=useState(null);
     const [priviewSource,setPreviewSource]=useState(null);
@@ -66,7 +67,7 @@ function UpdateProfilePhoto() {
                         </IconBtn>
                     </div>
                 </div>
-            </div>
+        </div>
     )
 }
 
