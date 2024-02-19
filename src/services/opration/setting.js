@@ -44,10 +44,10 @@ export function updateProfile(token, formData) {
         `${import.meta.env.VITE_BASE_URL}/profile/api/updateProfile`,
         formData,
         {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
+          // headers: {
+          //   "Content-Type": "multipart/form-data",
+          //   Authorization: `Bearer ${token}`,
+          // },
           withCredentials: true
         }
       ).then((res) => {

@@ -9,6 +9,6 @@ courserouter.get("/getAllCourses",getAllCourses);
 courserouter.get("/getCourseDetails",getCourseDetails)
 courserouter.get("/getFullCourseDetails",auth,getFullCourseDetails)
 courserouter.get("/updateCourseProgress",auth,updateCourseProgress)
-courserouter.get("/editeCourseDetails",auth,isInstructer,editeCourseDetails)
+courserouter.put("/editeCourseDetails",auth,isInstructer,editeCourseDetails)
 courserouter.get("/getInstructorCourses",auth,isInstructer,getInstructorCourses)
 module.exports = courserouter
