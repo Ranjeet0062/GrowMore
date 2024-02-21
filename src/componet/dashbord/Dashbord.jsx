@@ -5,7 +5,6 @@ import { SidebarLink } from "../../utils/SidebarLink"
 import { Outlet } from 'react-router-dom'
 function Dashbord() {
     const { user } = useSelector((state) => state.profile);
-    console.log("user inside dashbord", user)
     return (
         <div className="relative flex min-h-[calc(100vh-3.5rem)]">
             <Sidebar />

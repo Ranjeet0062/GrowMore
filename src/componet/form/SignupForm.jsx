@@ -26,7 +26,6 @@ export default function SignupForm({ setsignupphoto }) {
     }
     const hendalOnsubmit = (e) => {
         e.preventDefault();
-        console.log("submit form ")
         dispatch(setSignupData({ ...formData, accountType }));
         dispatch(sendOtp(formData.email, navigate));
     }

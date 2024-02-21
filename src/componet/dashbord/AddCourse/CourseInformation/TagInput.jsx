@@ -32,8 +32,7 @@ function TagInput({
             const newtag=e.target.value.trim();
             if(newtag&&!tag.includes(newtag)){
                 const addtag=[...tag,newtag]
-                console.log("dfgdsfdddd",addtag)
-                console.log(tag)
+               
                 settag(addtag)
                 e.target.value=""
             }

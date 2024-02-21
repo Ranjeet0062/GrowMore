@@ -24,11 +24,9 @@ function ContactForm() {
     setFromData((prev) => ({
       ...prev, [e.target.name]: e.target.value
     }))
-    console.log(formData)
   }
   const hendalOnsubmit = (e) => {
     e.preventDefault();
-    console.log("submit form ")
   }
   return (
     <div className='w-[50%] flex flex-col items-center font-semibold text-xl border border-richblack-600 rounded-2xl p-3'>

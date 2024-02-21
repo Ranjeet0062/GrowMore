@@ -13,7 +13,6 @@ function MyCourse() {
     const getInstructor = async () => {
         await axios.get(`${import.meta.env.VITE_BASE_URL}/course/api/getInstructorCourses`,{withCredentials:true})
             .then((res) => {
-                console.log("hello hello hello",res.data.data)
                 setCourseInMycourse(res.data.data);
                
             }).catch((error) => {
@@ -22,7 +21,6 @@ function MyCourse() {
     }
     useEffect(() => {
         getInstructor();
-        console.log("sdfhjkjsdfklsdfgfkdlj",courseInMycuorse)
     }, [])
     return (
         <>

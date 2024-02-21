@@ -30,7 +30,6 @@ function Navbar() {
     ]
     const { token,loading } = useSelector((state) => state.auth);
 
-    console.log("token is in navbaar",token)
     // const subLinks = ["mernstack", "webdev", "python"]
     useEffect(()=>{
         

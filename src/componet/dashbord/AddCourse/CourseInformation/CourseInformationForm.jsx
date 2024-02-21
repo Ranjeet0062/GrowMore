@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import { TbCoinRupee } from "react-icons/tb"
 import { MdNavigateNext } from "react-icons/md"
 import IconBtn from "../../../IconBtn"
-import TagInput from '../TagInput';
+import TagInput from './TagInput';
 import UploadThumnail from "../UploadThumnail"
 import { setStep, setCourse } from "../../../../redux/slices/course.slice"
 import { COURSE_STATUS } from "../../../../utils/constant"
@@ -102,17 +102,17 @@ function CourseInformationForm() {
         }
         // console.log("Edit Form data: ", formData)
         setloading(true)
-       const toastId= toast.loading("Loading..")
-    await axios.put(`${import.meta.env.VITE_BASE_URL}/course/api/editeCourseDetails`, formData, {
+        const toastId = toast.loading("Loading..")
+        await axios.put(`${import.meta.env.VITE_BASE_URL}/course/api/editeCourseDetails`, formData, {
           headers: {
             contentLength: '560',
             contentType: 'application/json; charset=utf-8'
           }.toJSON(), withCredentials: true
-        }).then((rea)=>{
+        }).then((rea) => {
           dispatch(setStep(2))
           dispatch(setCourse(result))
-        }).catch((error)=>{
-          console.log("error acure in updating course",error);
+        }).catch((error) => {
+          console.log("error acure in updating course", error);
           toast.error("failed to update course!try agin")
         })
         setloading(false)
@@ -134,15 +134,16 @@ function CourseInformationForm() {
     formData.append("instructions", JSON.stringify(data.courseRequirements))
     formData.append("thumbnailImage", data.courseImage)
     setloading(true)
-    const toastId=toast.loading("Loading...")
- await axios.post(`${import.meta.env.VITE_BASE_URL}/course/api/createcourse`, formData, { withCredentials: true })
- .then((res)=>{
-  dispatch(setStep(2))
-  dispatch(setCourse(res.data.data))
- }).catch((error)=>{
-  console.log("error acure in creating a course",error);
-  toast.error("failed to create a coourse!try agian")
- })
+    const toastId = toast.loading("Loading...")
+    await axios.post(`${import.meta.env.VITE_BASE_URL}/course/api/createcourse`, formData, { withCredentials: true })
+      .then((res) => {
+        dispatch(setStep(2))
+        console.log("creating course fjsdjfdfjf",res.data.data);
+        dispatch(setCourse(res.data.data))
+      }).catch((error) => {
+        console.log("error acure in creating a course", error);
+        toast.error("failed to create a coourse!try agian")
+      })
     setloading(false)
     toast.dismiss(toastId);
   }
