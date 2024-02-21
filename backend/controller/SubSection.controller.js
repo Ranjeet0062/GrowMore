@@ -5,7 +5,8 @@ require("dotenv").config()
 exports.createSubSection=async(req,res)=>{
     try{
         const {sectionId,title,description}=req.body;
-        const video=req.files.videourl;
+        const video=req.files.video;
+
         if (!sectionId || !title || !description || !video) {
             return res
               .status(404)
@@ -27,7 +28,7 @@ exports.createSubSection=async(req,res)=>{
                 success:true,
                 message:`subsection created successfully `,
                 subsection,
-                updatedsection
+                data:updatedsection
             }
           )
          
