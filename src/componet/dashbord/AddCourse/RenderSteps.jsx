@@ -4,7 +4,7 @@ import { useSelector } from "react-redux"
 // import CourseBuilderForm from "./CourseBuilder/CourseBuilderForm"
 import CourseInformationForm from "./CourseInformation/CourseInformationForm"
 import CourseBuilderForm from "./CourseBuilder/CourseBuilderFrom"
-// import PublishCourse from "./PublishCourse"
+import PublishCourse from "./PublivcCourse"
 
 
 export default function RenderSteps() {
@@ -85,7 +85,7 @@ export default function RenderSteps() {
       {/* Render specific component based on current step */}
       {step === 1 && <CourseInformationForm />}
       {step === 2 && <CourseBuilderForm />}
-      {/* {step === 3 &&  <CourseBuilderFrom /> } */}
+      {step === 3 &&  <PublishCourse /> }
     </>
   )
 }

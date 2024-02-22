@@ -112,17 +112,21 @@ export default function SubSectionModal({
         formData.append("description", data.lectureDesc)
         formData.append("video", data.lectureVideo)
         setLoading(true)
-       await axios.post(`${import.meta.env.VITE_BASE_URL}/section/api/createSubSection`, formData,
-        {withCredentials:true}).then((res)=>{
-             const updatedCourseContent = course.courseContent.map((section) =>
-             section._id === modalData ? res.data.data : section
-         )
-         const updatedCourse = { ...course, courseContent: updatedCourseContent }
-         dispatch(setCourse(updatedCourse))
-        })
-        
+        const toastId = toast.loading("Loading...")
+        await axios.post(`${import.meta.env.VITE_BASE_URL}/section/api/createSubSection`, formData,
+            { withCredentials: true }).then((res) => {
+                const updatedCourseContent = course.courseContent.map((section) =>
+                    section._id === modalData ? res.data.data : section
+                )
+                const updatedCourse = { ...course, courseContent: updatedCourseContent }
+                dispatch(setCourse(updatedCourse))
+            }).catch((error) => {
+                console.log(error);
+                toast.error("failed to create")
+            })
         setModalData(null)
         setLoading(false)
+        toast.dismiss(toastId)
     }
 
     return (

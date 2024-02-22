@@ -15,6 +15,7 @@ import Enrolledcourse from "./componet/Enrolledcourse"
 import SettingPage from "./componet/Setting/SettingPage"
 import MyCourse from "./componet/dashbord/MyCourse"
 import AddCourse from "./componet/dashbord/AddCourse"
+import EditCourse from "./componet/dashbord/EditeCourse";
 function App() {
   return (
     <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
@@ -33,6 +34,7 @@ function App() {
           <Route path="/dashboard/settings" element={<SettingPage/>}/>
           <Route path="/dashboard/my-courses" element={<MyCourse/>}/>
           <Route path="/dashboard/add-course" element={<AddCourse/>}/>
+          <Route path="/dashboard/edit-course/:courseId" element={<EditCourse/>}/>
         </Route>
       </Routes>
     </div>

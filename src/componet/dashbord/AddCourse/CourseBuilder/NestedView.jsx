@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiFillCaretDown } from "react-icons/ai"
 import { FaPlus } from "react-icons/fa"
 import { MdEdit } from "react-icons/md"
@@ -10,11 +10,14 @@ import { useState } from 'react'
 import SubSectionModal from "./SubSectionModal"
 import axios from 'axios'
 import { setCourse } from "../../../../redux/slices/course.slice"
+import toast from 'react-hot-toast'
+// import { useDispatch } from 'react-redux'
 function NestedView({ hendaleOnchengeSection }) {
     const [addSubSection, setAddSubsection] = useState(null)
     const [viewSubSection, setViewSubSection] = useState(null)
     const [editSubSection, setEditSubSection] = useState(null)
-    // to keep track of confirmation modal
+    const [loading, setLoading] = useState(false);
+    const dispatch=useDispatch()
     const [confirmationModal, setConfirmationModal] = useState(null)
     const { course } = useSelector((state) => state.course);
     console.log("course inside nested view", course)
@@ -22,30 +25,44 @@ function NestedView({ hendaleOnchengeSection }) {
         await axios.delete(`${import.meta.env.VITE_BASE_URL}/section/api/deleteSection`, {
             sectionId,
             courseId: course._id,
-        }, 
-        { withCredentials: true }
+        },
+            { withCredentials: true }
         )
-        .then((res) => {
-            dispatch(setCourse(res.data.data))
+            .then((res) => {
+                dispatch(setCourse(res.data.data))
 
-        }).catch((error)=>{
-            console.log(error);
+            }).catch((error) => {
+                console.log(error);
 
-        })
+            })
         setConfirmationModal(null)
     }
 
     const handleDeleteSubSection = async (subSectionId, sectionId) => {
-        const result = await axios.delete(`${import.meta.env.VITE_BASE_URL}//section/api/deleteSubSection`,{ subSectionId, sectionId },{withCredentials:true})
-        if (result) {
-            // update the structure of course
-            const updatedCourseContent = course.courseContent.map((section) =>
-                section._id === sectionId ? result : section
-            )
-            const updatedCourse = { ...course, courseContent: updatedCourseContent }
-            dispatch(setCourse(updatedCourse))
-        }
+        setLoading(true);
+        const toastId = toast.loading("Loading...");
+        await axios.delete(
+            `${import.meta.env.VITE_BASE_URL}/section/api/deleteSubSection`,
+            {
+              data: { subSectionId, sectionId },
+              withCredentials: true,
+            }
+          )
+            .then((res) => {
+              const updatedCourseContent = course.courseContent.map((section) =>
+                section._id === sectionId ? res.data.data : section
+              );
+              const updatedCourse = { ...course, courseContent: updatedCourseContent };
+              dispatch(setCourse(updatedCourse));
+              toast.success("deleted");
+            })
+            .catch((error) => {
+              console.log(error);
+              toast.error("failed to delete");
+            });
+          
         setConfirmationModal(null)
+        toast.dismiss(toastId)
     }
     return (
         <>

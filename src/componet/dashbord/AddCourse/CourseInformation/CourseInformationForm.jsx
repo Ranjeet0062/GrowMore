@@ -48,15 +48,33 @@ function CourseInformationForm() {
       console.log("data jyhgf", course)
       console.log("data populated", editCourse)
       setValue("courseTitle", course.courseName)
-      setValue("courseShortDesc", course.courseDescription)
+      setValue("courseDescription", course.courseDescription)
       setValue("coursePrice", course.price)
       setValue("courseTags", course.tag)
-      setValue("courseBenefits", course.whatYouWillLearn)
+      setValue("courseBenefits", course.whatyouWillLearn)
       setValue("courseCategory", course.category)
-      setValue("courseRequirements", course.instructions)
+      setValue("Intruction", course.instructions)
       setValue("courseImage", course.thumbnail)
     }
   }, [])
+  const isFormUpdated = () => {
+    const currentValues = getValues()
+    // console.log("changes after editing form values:", currentValues)
+    if (
+      currentValues.courseTitle !== course.courseName ||
+      currentValues.courseDescription !== course.courseDescription ||
+      currentValues.coursePrice !== course.price ||
+      currentValues.courseTags.toString() !== course.tag.toString() ||
+      currentValues.courseBenefits !== course.whatyouWillLearn ||
+      currentValues.courseCategory._id !== course.category._id ||
+      currentValues.Intruction.toString() !==
+        course.instructions.toString() ||
+      currentValues.courseImage !== course.thumbnail
+    ) {
+      return true
+    }
+    return false
+  }
   const onSubmit = async (data) => {
     // console.log(data)
 
@@ -73,8 +91,8 @@ function CourseInformationForm() {
         if (currentValues.courseTitle !== course.courseName) {
           formData.append("courseName", data.courseTitle)
         }
-        if (currentValues.courseShortDesc !== course.courseDescription) {
-          formData.append("courseDescription", data.courseShortDesc)
+        if (currentValues.courseDescription !== course.courseDescription) {
+          formData.append("courseDescription", data.courseDescription)
         }
         if (currentValues.coursePrice !== course.price) {
           formData.append("price", data.coursePrice)
@@ -82,19 +100,19 @@ function CourseInformationForm() {
         if (currentValues.courseTags.toString() !== course.tag.toString()) {
           formData.append("tag", JSON.stringify(data.courseTags))
         }
-        if (currentValues.courseBenefits !== course.whatYouWillLearn) {
-          formData.append("whatYouWillLearn", data.courseBenefits)
+        if (currentValues.courseBenefits !== course.whatyouWillLearn) {
+          formData.append("whatyouWillLearn", data.courseBenefits)
         }
         if (currentValues.courseCategory._id !== course.category._id) {
           formData.append("category", data.courseCategory)
         }
         if (
-          currentValues.courseRequirements.toString() !==
+          currentValues.Intruction.toString() !==
           course.instructions.toString()
         ) {
           formData.append(
             "instructions",
-            JSON.stringify(data.courseRequirements)
+            JSON.stringify(data.Intruction)
           )
         }
         if (currentValues.courseImage !== course.thumbnail) {
@@ -104,13 +122,16 @@ function CourseInformationForm() {
         setloading(true)
         const toastId = toast.loading("Loading..")
         await axios.put(`${import.meta.env.VITE_BASE_URL}/course/api/editeCourseDetails`, formData, {
-          headers: {
-            contentLength: '560',
-            contentType: 'application/json; charset=utf-8'
-          }.toJSON(), withCredentials: true
-        }).then((rea) => {
+           headers: {
+             contentLength: '560',
+             contentType: 'application/json; charset=utf-8',
+            },
+            withCredentials: true
+        }).then((res) => {
           dispatch(setStep(2))
-          dispatch(setCourse(result))
+          console.log("jjjjjjjjjjmmmmmmmm",res.data);
+          dispatch(setCourse(res.data.data))
+          toast.success("course updated successfully")
         }).catch((error) => {
           console.log("error acure in updating course", error);
           toast.error("failed to update course!try agin")
@@ -125,20 +146,20 @@ function CourseInformationForm() {
 
     const formData = new FormData()
     formData.append("courseName", data.courseTitle)
-    formData.append("courseDescription", data.courseShortDesc)
+    formData.append("courseDescription", data.courseDescription)
     formData.append("price", data.coursePrice)
     formData.append("tag", JSON.stringify(data.courseTags))
-    formData.append("whatYouWillLearn", data.courseBenefits)
+    formData.append("whatyouWillLearn", data.courseBenefits)
     formData.append("category", data.courseCategory)
     formData.append("status", COURSE_STATUS.DRAFT)
-    formData.append("instructions", JSON.stringify(data.courseRequirements))
+    formData.append("instructions", JSON.stringify(data.Intruction))
     formData.append("thumbnailImage", data.courseImage)
     setloading(true)
     const toastId = toast.loading("Loading...")
     await axios.post(`${import.meta.env.VITE_BASE_URL}/course/api/createcourse`, formData, { withCredentials: true })
       .then((res) => {
         dispatch(setStep(2))
-        console.log("creating course fjsdjfdfjf",res.data.data);
+        console.log("creating course fjsdjfdfjf", res.data.data);
         dispatch(setCourse(res.data.data))
       }).catch((error) => {
         console.log("error acure in creating a course", error);

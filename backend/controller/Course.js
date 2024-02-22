@@ -13,34 +13,34 @@ exports.createCourse = async (req, res) => {
     const userId = req.user.id
 
     // Get all required fields from request body
+    console.log("tag", req.body)
     let {
       courseName,
       courseDescription,
-      whatYouWillLearn,
+      whatyouWillLearn,
       price,
-      // tag: _tag,
+      tag: _tag,
       category,
       status,
-      // instructions: _instructions,
+      instructions: _instructions,
     } = req.body
     // Get thumbnail image from request files
     const thumbnail = req.files.thumbnailImage
 
     // Convert the tag and instructions from stringified Array to Array
-    //   const tag = JSON.parse(_tag)
-    //   const instructions = JSON.parse(_instructions)
+    const tag = JSON.parse(_tag)
+    const instructions = JSON.parse(_instructions)
 
-    console.log("tag", req.body)
     //   console.log("instructions", instructions)
 
     // Check if any of the required fields are missing
     if (
-      !courseName
-      // !courseDescription ||
-      // !whatYouWillLearn ||
-      // !price ||
-      // !thumbnail ||
-      // !category 
+      !courseName ||
+      !courseDescription ||
+      !whatyouWillLearn ||
+      !price ||
+      !thumbnail ||
+      !category
     ) {
       return res.status(400).json({
         success: false,
@@ -81,13 +81,13 @@ exports.createCourse = async (req, res) => {
       courseName,
       courseDescription,
       instructor: instructorDetails._id,
-      whatYouWillLearn: whatYouWillLearn,
+      whatyouWillLearn,
       price,
-      // tag,
+      tag,
       category: categoryDetails._id,
       thumbnail: thumbnailImage.secure_url,
       status: status,
-      // instructions,
+      instructions,
     })
 
     // Add the new course to the User Schema of the Instructor
@@ -114,6 +114,7 @@ exports.createCourse = async (req, res) => {
     )
     console.log("HEREEEEEEEE", categoryDetails2)
     // Return the new course and a success message
+    console.log("newCourse", newCourse)
     res.status(200).json({
       success: true,
       data: newCourse,
@@ -155,6 +156,7 @@ exports.getAllCourses = async (req, res) => {
 }
 exports.getCourseDetails = async (req, res) => {
   try {
+    console.log("ooooooooooooooo",req.body);
     const { courseId } = req.body
     const courseDetails = await Course.findOne({
       _id: courseId,
@@ -261,6 +263,7 @@ exports.editeCourseDetails = async (req, res) => {
   try {
     const { courseId } = req.body
     const updates = req.body;
+    console.log("inside editecourse")
     const course = await Course.findById(courseId);
     if (!course) {
       return res.status(401).json({
@@ -285,30 +288,30 @@ exports.editeCourseDetails = async (req, res) => {
       }
     }
     await course.save();
+    console.log("before updatecourse dbcall")
     const updatecourse = await Course.findById(courseId)
-      .populate(
-        {
-          path: "Instructore",
-          populate: {
-            path: "additionalDetails"
-          },
-        })
-      .populate("category")
-      .populate("ratingAndReview")
       .populate({
-        path: "courseContent",
-        poppulate: {
-          path: "subSection"
-        }
-      }
-
-      ).exec()
-      return res.status(200).json({
-        success:true,
-        message:'corse edite successfully',
-        date:updatecourse
+        path: "Instructore",
+        populate: {
+          path: "additionalDetails"
+        },
+        options: { strictPopulate: false }
       })
- 
+      .populate("category").populate({
+        path: "courseContent",
+        populate: {
+          path: "subSection"
+        },
+        options: { strictPopulate: false }
+      })
+      .exec();
+    console.log("after dbcall")
+    return res.status(200).json({
+      success: true,
+      message: 'corse edite successfully',
+      data: updatecourse
+    })
+
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -325,7 +328,7 @@ exports.getInstructorCourses = async (req, res) => {
     const instructorCourses = await Course.find({
       instructor: instructorId,
     }).sort({ createdAt: -1 })
-    console.log("fjhklddhkdfklffklfjfk",instructorCourses)
+    console.log("fjhklddhkdfklffklfjfk", instructorCourses)
     // Return the instructor's courses
     res.status(200).json({
       success: true,
