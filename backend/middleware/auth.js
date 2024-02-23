@@ -5,12 +5,16 @@ exports.auth = (req, res, next) => {
     console.log("inside auth middleware",req.cookies)
     const token = req.body.token || req.cookies.token|| (req.header("Authorization") || "").replace("Bearer ", "")
     console.log(typeof token)
+    console.log("auth middware is start");
+
     if (!token) {
       return res.status(401).json({
         success: false,
         message: "token missing",
       });
     }
+    console.log("auth middware is in middle");
+
     try {
       const decode = jwt.verify(token, process.env.JWT_SECRET);
       req.user = decode;
@@ -21,7 +25,7 @@ exports.auth = (req, res, next) => {
         message: "token is invalid",
       });
     }
-
+    console.log("auth middware is compleate");
     next();
   } catch (err) {
     console.log(err);
@@ -76,6 +80,8 @@ exports.isInstructer=(req,res,next)=>{
     const role=req.user.accountType
     if(role==="Instructor"){
         next();
+        console.log("auth middware is innnjnjn");
+
     }else{
       return res.status(200).json({
         success:false,
