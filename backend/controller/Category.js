@@ -44,10 +44,18 @@ exports.showAllCategories = async (req, res) => {
 };
 exports.categoryPageDetails = async (req, res) => {
   try {
+    console.log(",,,,,,,,,,,,,,,,", req.body)
     const { categoryId } = req.body
     console.log("PRINTING CATEGORY ID: ", categoryId);
     // Get courses for the specified category
     const selectedCategory = await Category.findById(categoryId)
+    .populate({
+      path: "courses",
+      // match: { status: "Published" },
+      populate: {
+        path: "instructor",
+      }
+    },)
     // .lean()
     // .populate({
     //   path: "courses",
@@ -83,7 +91,7 @@ exports.categoryPageDetails = async (req, res) => {
     )
       .populate({
         path: "courses",
-        match: { status: "Published" },
+        // match: { status: "Published" },
       })
       .exec()
     //console.log("Different COURSE", differentCategory)
@@ -91,7 +99,7 @@ exports.categoryPageDetails = async (req, res) => {
     const allCategories = await Category.find()
       .populate({
         path: "courses",
-        match: { status: "Published" },
+        // match: { status: "Published" },
         populate: {
           path: "instructor",
         },
@@ -102,7 +110,7 @@ exports.categoryPageDetails = async (req, res) => {
       .sort((a, b) => { b.studentsEnrolled?.length - a.studentsEnrolled?.length })
       .slice(0, 10)
     //  console.log("mostSellingCourses COURSE", mostSellingCourses)
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: {
         selectedCategory,
