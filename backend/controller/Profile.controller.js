@@ -17,7 +17,7 @@ exports.updateProfile = async (req, res) => {
 			about: about,
 			contactNumber: contactNumber,
 			gender: gender
-		},{new:true})
+		}, { new: true })
 		const user = await User.findById(id,).populate("additionalDetails").exec();
 
 		// Update the profile fields
@@ -94,16 +94,23 @@ exports.getEnrolledCourses = async (req, res) => {
 		const userId = req.user.id
 		let userDetails = await User.findOne({
 			_id: userId,
-		})
-			.populate({
-				path: "courses",
-				populate: {
+		}).populate({
+			path: "courses",
+			populate: [
+				{
 					path: "courseContent",
 					populate: {
 						path: "subSection",
 					},
 				},
-			})
+				{
+					path: "instructor",
+					select:"-courses"
+				},
+			],
+			select: "-courses.studentsEnrolled",
+
+		})
 			.exec()
 
 		userDetails = userDetails.toObject()

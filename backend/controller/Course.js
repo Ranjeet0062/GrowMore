@@ -391,3 +391,34 @@ exports.deleteCourses = async (req, res) => {
     })
   }
 }
+exports.enrolledinCourse = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { courseId } = req.body
+    const user = await User.findById(userId)
+    if (!user) {
+      return res.status(200).json({
+        success: false,
+        message: "user does not found"
+      })
+    }
+    const updateduser = await User.findByIdAndUpdate(
+      userId,
+      {
+        $push: {courses:courseId }
+      },
+      {new:true}
+    )
+return res.status(200).json({
+  success:true,
+  message:"student endrolled in course",
+  data:updateduser
+})
+
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: `something went to wrong while enrolled in course and error is ${error}`
+    })
+  }
+}
