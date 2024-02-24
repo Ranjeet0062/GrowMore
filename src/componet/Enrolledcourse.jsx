@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom"
 import axios from 'axios'
 
 export default function EnrolledCourse() {
-  const { token } = useSelector((state) => state.auth)
   const navigate = useNavigate()
   const [enrolledCourses, setEnrolledCourses] = useState(null)
   const getEnrolledCourses = async () => {
