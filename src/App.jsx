@@ -18,11 +18,13 @@ import AddCourse from "./componet/dashbord/AddCourse"
 import EditCourse from "./componet/dashbord/EditeCourse";
 import Catalog from "./pages/Catalog";
 import CourseDetails from "./pages/CourseDetails"
+import Cart from "./componet/dashbord/Cart"
 function App() {
   return (
     <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
       <Navbar />
       <Routes>
+      <Route path="dashboard/cart" element={<Cart />} />
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
