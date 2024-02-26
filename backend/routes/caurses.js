@@ -7,8 +7,8 @@ const {updateCourseProgress}=require("../controller/courseProgress.controller")
 courserouter.post("/createcourse",auth,isInstructer,createCourse);
 courserouter.get("/getAllCourses",getAllCourses);
 courserouter.post("/getCourseDetails",getCourseDetails)
-courserouter.get("/getFullCourseDetails",auth,getFullCourseDetails)
-courserouter.get("/updateCourseProgress",auth,updateCourseProgress)
+courserouter.post("/getFullCourseDetails",auth,getFullCourseDetails)
+courserouter.post("/updateCourseProgress",auth,updateCourseProgress)
 courserouter.put("/editeCourseDetails",auth,isInstructer,editeCourseDetails)
 courserouter.get("/getInstructorCourses",auth,isInstructer,getInstructorCourses)
 courserouter.post("/enrolledinCourse",auth,isStudent,enrolledinCourse)

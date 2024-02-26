@@ -6,7 +6,7 @@ exports.createSubSection=async(req,res)=>{
     try{
         const {sectionId,title,description}=req.body;
         const video=req.files.video;
-
+        console.log("video insidesubsection",video)
         if (!sectionId || !title || !description || !video) {
             return res
               .status(404)

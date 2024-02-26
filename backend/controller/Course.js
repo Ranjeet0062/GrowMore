@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Course = require("../model/course.mosel")
 const Category = require("../model/category.model")
 const Section = require("../model/section")
@@ -6,7 +7,6 @@ const User = require("../model/user.model")
 const { uploadImageToCloudinary } = require("../utils/imageUploader")
 const CourseProgress = require("../model/courseprogress.model")
 const { convertSecondsToDuration } = require("../utils/secToDuration")
-
 exports.createCourse = async (req, res) => {
   try {
     // Get user ID from request object
@@ -225,7 +225,20 @@ exports.getFullCourseDetails = async (req, res) => {
       // { status: "Published" },
       courseId
     )
-      .populate("instructor")
+      .populate({
+        path: "instructor",
+        populate: {
+          path: "additionalDetails",
+        },
+      })
+      .populate("category")
+      .populate("ratingAndReviews")
+      .populate({
+        path: "courseContent",
+        populate: {
+          path: "subSection",
+        },
+      })
       .exec()
     let courseProgressCount = await CourseProgress.findOne({
       courseID: courseId,
@@ -344,7 +357,7 @@ exports.getInstructorCourses = async (req, res) => {
 }
 exports.deleteCourses = async (req, res) => {
   try {
-    console.log("lllllllllllllll",req.body);
+    console.log("lllllllllllllll", req.body);
     const { courseId } = req.body
     const course = await Course.findById(courseId);
     if (!course) {
@@ -405,15 +418,25 @@ exports.enrolledinCourse = async (req, res) => {
     const updateduser = await User.findByIdAndUpdate(
       userId,
       {
-        $push: {courses:courseId }
+        $push: { courses: courseId }
       },
-      {new:true}
+      { new: true }
     )
-return res.status(200).json({
-  success:true,
-  message:"student endrolled in course",
-  data:updateduser
-})
+    const Object = mongoose.Types.ObjectId;
+    const objectid = new Object(userId)
+    const updatedcourse = await Course.findByIdAndUpdate(
+      courseId,
+      {
+        $push: { studentsEnrolled: objectid }
+      },
+      { new: true }
+    );
+    return res.status(200).json({
+      success: true,
+      message: "student endrolled in course",
+      data: updateduser,
+      updatedcourse
+    })
 
   } catch (error) {
     return res.status(500).json({
