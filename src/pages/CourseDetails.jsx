@@ -12,7 +12,7 @@ import CourseAccordionBar from "../componet/dashbord/Course/CourseAccordionBar"
 import CourseDetailsCard from "../componet/dashbord/Course/CourseDetailsCard"
 import { formattedDate } from "../utils/formatDate"
 // import { fetchCourseDetails } from "../services/operations/courseDetailsAPI"
-// import { buyCourse } from "../services/operations/studentFeaturesAPI"
+import { buyCourse } from "../services/opration/payment"
 import GetAvgRating from "../utils/avgRating"
 // import Error from "./Error"
 import toast from "react-hot-toast"
@@ -27,7 +27,7 @@ function CourseDetails() {
 
   // Getting courseId from url parameter
   const { courseId } = useParams()
-  // console.log(`course id: ${courseId}`)
+  console.log(`course id: ${user}`)
 
   // Declear a state to save the course details
   const [response, setResponse] = useState(null)
@@ -40,6 +40,7 @@ function CourseDetails() {
           { courseId },
           { withCredentials: true })
           .then((res) => {
+            console.log("rsponse innside coursedetails",res.data)
             setResponse(res.data)
           }).catch((error)=>{
             toast.error("not fatced coursedetails")
@@ -109,18 +110,19 @@ function CourseDetails() {
   } = response.data?.courseDetails
 
   const handleBuyCourse = () => {
-    //   if (token) {
-    //     buyCourse(token, [courseId], user, navigate, dispatch)
-    //     return
-    //   }
-    //   setConfirmationModal({
-    //     text1: "You are not logged in!",
-    //     text2: "Please login to Purchase Course.",
-    //     btn1Text: "Login",
-    //     btn2Text: "Cancel",
-    //     btn1Handler: () => navigate("/login"),
-    //     btn2Handler: () => setConfirmationModal(null),
-    //   })
+    console.log("token inside courseDetails",token);
+      if (token) {
+        buyCourse([courseId], user, navigate, dispatch)
+        return
+      }
+      setConfirmationModal({
+        text1: "You are not logged in!",
+        text2: "Please login to Purchase Course.",
+        btn1Text: "Login",
+        btn2Text: "Cancel",
+        btn1Handler: () => navigate("/login"),
+        btn2Handler: () => setConfirmationModal(null),
+      })
     console.log("bouy course");
   }
 

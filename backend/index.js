@@ -6,6 +6,7 @@ const courserouter=require("./routes/caurses.js")
 const profilerouter=require("./routes/profile.js")
 const secctionrouter=require("./routes/section.js")
 const ratingandraviewrouter=require("./routes/ratingandriew.js")
+const payrouter =require("./routes/payment.js")
 const cors = require('cors');
 const fileUpload = require("express-fileupload");
 const cookieParser=require("cookie-parser")
@@ -29,6 +30,7 @@ app.use("/course/api",courserouter)
 app.use("/profile/api",profilerouter)
 app.use("/section/api",secctionrouter)
 app.use("/rating/api",ratingandraviewrouter);
+app.use("/payment",payrouter)
 app.get("/",(req,res)=>{
     res.send("hello");
 })

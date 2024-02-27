@@ -404,38 +404,69 @@ exports.deleteCourses = async (req, res) => {
     })
   }
 }
-exports.enrolledinCourse = async (req, res) => {
+exports.enrolledinCourse = async (courses, userid, res) => {
   try {
-    const userId = req.user.id;
-    const { courseId } = req.body
-    const user = await User.findById(userId)
-    if (!user) {
+    if (!courses || !userid) {
       return res.status(200).json({
         success: false,
-        message: "user does not found"
+        message: "course and userid is required"
       })
     }
-    const updateduser = await User.findByIdAndUpdate(
-      userId,
-      {
-        $push: { courses: courseId }
-      },
-      { new: true }
-    )
-    const Object = mongoose.Types.ObjectId;
-    const objectid = new Object(userId)
-    const updatedcourse = await Course.findByIdAndUpdate(
-      courseId,
-      {
-        $push: { studentsEnrolled: objectid }
-      },
-      { new: true }
-    );
+    console.log("inside enrolled in course",courses)
+    console.log("inside enrolled in course",userid,"userid")
+
+    for (const courseId of courses) {
+      try {
+        console.log("inside enrolled fggfgfdgfddgfdferfgfdgdfggfdgin course",userid,"userid")
+        const user = await User.findById(userid)
+        if (!user) {
+          return res.status(200).json({
+            success: false,
+            message: "user does not found"
+          })
+        }
+        console.log(",,,,,,,,,,,,,,,,,,,,,,inside enrolled in course")
+
+        const updateduser = await User.findByIdAndUpdate(
+          userid,
+          {
+            $push: { courses: courseId }
+          },
+          { new: true }
+        )
+        const courseProgress = await CourseProgress.create({
+          courseID: courseId,
+          userId: userid,
+          completedVideos: [],
+        })
+
+        const Object = mongoose.Types.ObjectId;
+        const objectid = new Object(userid)
+        console.log("inside enrolled in course","pppppppppppppppppppppkkkkk")
+
+        const updatedcourse = await Course.findByIdAndUpdate(
+          courseId,
+          {
+            $push: {
+              studentsEnrolled: objectid,
+              courseProgress: courseProgress._id,
+            }
+          },
+          { new: true }
+        );
+        console.log("inside enrolled in vfvfvfvfvffvvfvv")
+
+      } catch (error) {
+        return res.status(500).json({
+          success: false,
+          message: `something went while enrolled in course`
+        })
+      }
+    }
+
     return res.status(200).json({
       success: true,
       message: "student endrolled in course",
-      data: updateduser,
-      updatedcourse
     })
 
   } catch (error) {
