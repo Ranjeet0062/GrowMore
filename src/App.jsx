@@ -21,6 +21,7 @@ import CourseDetails from "./pages/CourseDetails"
 import Cart from "./componet/dashbord/Cart"
 import ViewCourse from "./pages/ViewCourse"
 import VideoDetails from "./componet/dashbord/ViewCourse/VideoDetails"
+import Instructor from "./componet/dashbord/InstructorDashboard/Instructor";
 function App() {
   return (
     <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
@@ -41,6 +42,7 @@ function App() {
           <Route path="/dashboard/my-courses" element={<MyCourse />} />
           <Route path="/dashboard/add-course" element={<AddCourse />} />
           <Route path="/dashboard/edit-course/:courseId" element={<EditCourse />} />
+          <Route path="/dashboard/instructor" element={<Instructor/>}/>
         </Route>
         <Route path="courses/:courseId" element={<CourseDetails />} />
         <Route path="/catalog/:catalogName" element={<Catalog />} />

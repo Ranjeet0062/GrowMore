@@ -29,7 +29,7 @@ function MyCourse() {
                     My Profile
                 </h1>
                 <div>
-                    <IconBtn text={"Add Course"}>
+                    <IconBtn text={"Add Course"} onclick={()=>{navigate("/dashboard/add-course")}} >
                         <HiOutlinePlus />
                     </IconBtn>
                 </div>
