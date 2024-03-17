@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 function UpdatePassword() {
     // const token=useParams("id")
     const token=useLocation().pathname.split("/")[2];
+    console.log("token is inside updatePassword",token)
     const [password,setpassword]=useState("");
     const [confirmpassword,setconfirmpassword]=useState("");
     const dispatch=useDispatch()
