@@ -43,9 +43,9 @@ const ViewCourse = () => {
 
   return (
     <>
-        <div>
+        <div  className='flex text-white w-full'>
             <VideoDetailsSidebar setReviewModal={setReviewModal} />
-            <div>
+            <div className='w-[65%] '>
                 <Outlet />
             </div>
             {reviewModal && (<CourseReviewModal setReviewModal={setReviewModal} />)}

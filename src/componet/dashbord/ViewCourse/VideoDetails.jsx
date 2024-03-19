@@ -34,7 +34,6 @@ const VideoDetails = () => {
         }
         else {
             //let's assume k all 3 fields are present
-            console.log("mmmmmmmmm",courseSectionData,"oooooooooo",courseEntireData,"ll",completedLectures)
             const filteredData = courseSectionData.filter(
                 (course) => course._id === sectionId
             )
@@ -168,7 +167,7 @@ const VideoDetails = () => {
 
   }
   return (
-    <div>
+    <div className='relative'>
       {
         !videoData ? (<div>
                         No Data Found
@@ -181,12 +180,9 @@ const VideoDetails = () => {
                 onEnded={() => setVideoEnded(true)}
                 src={videoData?.videoUrl}
                  >
-
-                <AiFillPlayCircle  />
-
                 {
                     videoEnded && (
-                        <div>
+                        <div className='absolute top-[50%] left-[50%] right-[50%] bottom-[50%] z-10'>
                             {
                                 !completedLectures.includes(subSectionId) && (
                                     <IconBtn 

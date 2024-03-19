@@ -34,26 +34,25 @@ const CourseReviewModal = ({ setReviewModal }) => {
                 rating: data.courseRating,
                 review: data.courseExperience,
             },
-           {withCredentials:true}
-        ).then((res)=>{
-            console.log("created rating",res.data)
-        }).catch((error)=>{
-            console.log("error accure in creating rating  and error is",error)
+            { withCredentials: true }
+        ).then((res) => {
+            console.log("created rating", res.data)
+        }).catch((error) => {
+            console.log("error accure in creating rating  and error is", error)
         })
         setReviewModal(false);
     }
 
     return (
-        <div>
+        <div className='w-[20%] p-3'>
             <div>
                 {/* Modal header */}
-                <div>
+                <div className='flex  justify-between mt-4'>
                     <p>Add Review</p>
-                    <button
-                        onClick={() => setReviewModal(false)}
-                    >
-                        Close
-                    </button>
+                    <IconBtn
+                        onclick={() => setReviewModal(false)}
+                        text="Cancel"
+                    />
                 </div>
 
                 {/* Modal Body */}
@@ -102,12 +101,11 @@ const CourseReviewModal = ({ setReviewModal }) => {
                             }
                         </div>
                         {/* Cancel and Save button */}
-                        <div>
-                            <button
-                                onClick={() => setReviewModal(false)}
-                            >
-                                Cancel
-                            </button>
+                        <div className='flex gap-4 mt-4'>
+                            <IconBtn
+                                onclick={() => setReviewModal(false)}
+                                text="Cancel"
+                            />
                             <IconBtn
                                 text="save"
                             />

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import IconBtn from "../../IconBtn";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 const VideoDetailsSidebar = ({ setReviewModal }) => {
 
@@ -43,17 +44,17 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
 
     return (
         <>
-            <div className='text-white'>
+            <div className='text-white w-[15%]'>
                 {/* for buttons and headings */}
                 <div>
                     {/* for buttons */}
-                    <div>
+                    <div className='flex   justify-between items-center'>
                         <div
                             onClick={() => {
                                 navigate("/dashboard/enrolled-courses")
                             }}
                         >
-                            Back
+                            <IoMdArrowRoundBack/>
                         </div>
 
                         <div>
@@ -65,9 +66,9 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
 
                     </div>
                     {/* for heading or title */}
-                    <div>
-                        <p>{courseEntireData?.courseName}</p>
-                        <p>{completedLectures?.length} / {totalNoOfLectures}</p>
+                    <div className='mt-3 flex gap-3 bg-richblack-400 pt-3 pb-3 justify-center'>
+                        <p className='font-bold'>{courseEntireData?.courseName}</p>
+                        <p className='text-caribbeangreen-600 font-bold'>{completedLectures?.length} / {totalNoOfLectures}</p>
                     </div>
                 </div>
 
@@ -82,7 +83,7 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
 
                                 {/* section */}
 
-                                <div>
+                                <div className='mt-3 flex gap-3 bg-richblack-400 pt-3 pb-3 pl-4'>
                                     <div>
                                         {course?.sectionName}
                                     </div>
@@ -97,7 +98,7 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
                                                 {
                                                     course.subSection.map((topic, index) => (
                                                         <div
-                                                            className={`flex gap-5 p-5 ${videoBarActive === topic._id
+                                                            className={`flex gap-5 p-5   bg-richblack-400 pt-3 pb-3 ${videoBarActive === topic._id
                                                                 ? "bg-yellow-200 text-richblack-900"
                                                                 : "bg-richblack-900 text-white"
                                                                 }`}
