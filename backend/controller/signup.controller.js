@@ -169,7 +169,7 @@ exports.login = async (req, res) => {
 		// Return 500 Internal Server Error status code with error message
 		return res.status(500).json({
 			success: false,
-			message: `Login Failure Please Try Again`,
+			message: `Login Failure Please Try Again and error is ${error}`,
 		});
 	}
 };
