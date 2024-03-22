@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { FaArrowRight } from "react-icons/fa"
 import { Link } from "react-router-dom"
 import HighlightText from '../componet/HighlightText'
@@ -10,12 +11,11 @@ import Knowyourprogrss from "../assets/Images/Know_your_progress.png"
 import instructor from "../assets/Images/Instructor.png"
 import Experience from "../smallcomponets/Experience"
 import Timelineimage from "../assets/Images/TimelineImage.png"
-import Navbar from '../componet/Navbar'
 import Footer from "../componet/Footer"
 function Home() {
+    const { token } = useSelector((state) => state.auth);
     return (
         <div>
-        
             <div className='mb-10'>
                 {/*Section1  */}
                 <div className='relative mx-auto flex flex-col w-11/12 max-w-maxContent items-center text-white justify-between'>
@@ -39,7 +39,7 @@ function Home() {
                     </div>
 
                     <div className='flex flex-row gap-7 mt-8'>
-                        <CTAButton active={true} linkto={"/signup"}>
+                        <CTAButton active={true} linkto={!token?"/signup":"/"}>
                             Learn More
                         </CTAButton>
 
