@@ -45,9 +45,9 @@ const Instructor = () => {
                 : courses.length > 0
                     ? (<div>
                         <div className='w-full flex '>
-                            <div className='w-full flex justify-between'>
+                            <div className='w-full flex flex-col md:flex-row justify-between'>
                                 <InstructorChart courses={instructorData} />
-                                <div className='w-[40%] flex flex-col gap-3 bg-richblack-500 p-5 rounded-2xl h-[400px] mt-[20px]'>
+                                <div className='w-[400px] flex flex-col gap-3 bg-richblack-500 p-5 rounded-2xl h-[400px] mt-[20px]'>
                                     <p className='text-2xl font-bold'>Statistics</p>
                                     <div className='text-xl '>
                                         <p className='text-xl '>Total Courses</p>

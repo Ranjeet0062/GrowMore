@@ -47,7 +47,7 @@ function Navbar() {
                         <img src={logoFullLight} alt="logo" className='w-[145px]' />
                     </Link>
                 </div>
-                <div className=' navigaton'>
+                <div className='navigaton hidden md:block'>
                     <ul className='flex gap-3 font-semibold'>
                         {
                             navlink.map((navitem, index) => {

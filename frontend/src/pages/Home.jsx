@@ -14,6 +14,7 @@ import Timelineimage from "../assets/Images/TimelineImage.png"
 import Footer from "../componet/Footer"
 function Home() {
     const { token } = useSelector((state) => state.auth);
+    const {user}=useSelector((state)=>state.profile);
     return (
         <div>
             <div className='mb-10'>
@@ -39,11 +40,11 @@ function Home() {
                     </div>
 
                     <div className='flex flex-row gap-7 mt-8'>
-                        <CTAButton active={true} linkto={!token?"/signup":"/"}>
+                        <CTAButton active={true} linkto={!user?("/signup"):(user.accountType==="Instructor"?("/dashboard/my-courses"):("/dashboard/enrolled-courses"))}>
                             Learn More
                         </CTAButton>
 
-                        <CTAButton active={false} linkto={"/login"}>
+                        <CTAButton active={false} linkto={!user?("/signup"):(user.accountType==="Instructor"?("/dashboard/my-courses"):("/dashboard/enrolled-courses"))}>
                             Book a Demo
                         </CTAButton>
                     </div>
@@ -109,14 +110,14 @@ function Home() {
                             ctabtn1={
                                 {
                                     btnText: "try it yourself",
-                                    linkto: "/signup",
+                                    linkto:!user?("/signup"):(user.accountType==="Instructor"?("/dashboard/my-courses"):("/dashboard/enrolled-courses")),
                                     active: true,
                                 }
                             }
                             ctabtn2={
                                 {
                                     btnText: "learn more",
-                                    linkto: "/login",
+                                    linkto: !user?("/signup"):(user.accountType==="Instructor"?("/dashboard/my-courses"):("/dashboard/enrolled-courses")),
                                     active: false,
                                 }
                             }
@@ -130,11 +131,11 @@ function Home() {
                         <h1 className=' font-extrabold text-center md:text-start text-5xl'>Unlock the <HighlightText text={"Power of Code"} /></h1>
                         <span className=' font-bold opacity-75 text-xl'>Learn to Build Anything You Can Imagine</span>
                         <div className='flex gap-5 mt-4'>
-                            <CTAButton active={true} linkto={"/signup"}>
+                            <CTAButton active={true} linkto={!user?("/signup"):(user.accountType==="Instructor"?("/dashboard/my-courses"):("/dashboard/enrolled-courses"))}>
                                 Expore full catelog
                             </CTAButton>
 
-                            <CTAButton active={false} linkto={"/login"}>
+                            <CTAButton active={false} linkto={!user?("/signup"):(user.accountType==="Instructor"?("/dashboard/my-courses"):("/dashboard/enrolled-courses"))}>
                                 Learn more
                             </CTAButton>
                         </div>
@@ -195,7 +196,7 @@ function Home() {
                                 <img src={Comparewithother} alt="" />
                                 <img src={Knowyourprogrss} alt="" />
                             </div>
-                            <CTAButton active={true} linkto={"/signup"}>
+                            <CTAButton active={true} linkto={!user?("/signup"):(user.accountType==="Instructor"?("/dashboard/my-courses"):("/dashboard/enrolled-courses"))}>
                                 Learn More
                             </CTAButton >
                         </div>
@@ -203,8 +204,8 @@ function Home() {
                     </div>
                 </div>
                 {/* section 3 */}
-                <div className=' w-[100%] mt-28'>
-                    <div className='relative mx-auto flex  w-11/12 max-w-maxContent items-center text-white justify-between gap-5'>
+                <div className=' w-[100%] mt-28 '>
+                    <div className='relative mx-auto flex flex-col  md:flex-row w-11/12 max-w-maxContent items-center text-white justify-between gap-5'>
                         <div className='w-[50%]'>
                             <img src={instructor} alt="instructor" />
                         </div>
@@ -216,7 +217,7 @@ function Home() {
                                 </p>
                             </div>
                             <div className='w-[200px]'>
-                                <CTAButton active={true} linkto={"/signup"}>
+                                <CTAButton active={true} linkto={!user?("/signup"):(user.accountType==="Instructor"?("/dashboard/my-courses"):("/dashboard/enrolled-courses"))}>
                                     Start Learning today
                                 </CTAButton>
                             </div>
