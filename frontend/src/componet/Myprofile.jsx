@@ -7,10 +7,12 @@ import { formattedDate } from "../utils/formatDate"
 import { useState, useEffect } from 'react';
 function Myprofile() {
   const { user } = useSelector((sate) => sate.profile);
+  const {token}=useSelector((state)=>state.auth)
   const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate()
 
   useEffect(() => {
+    console.log("token token token ",token)
     const handleResize = () => {
       setIsMobile(window.innerWidth < 500);
       // Adjust breakpoint as needed

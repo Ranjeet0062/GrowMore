@@ -26,6 +26,8 @@ function CourseDetails() {
   const navigate = useNavigate()
 
   // Getting courseId from url parameter
+  console.log("token inside coursedetails first",token)
+  console.log("user inside coursedetails forst",user)
   const { courseId } = useParams()
   console.log(`course id: ${user}`)
 
@@ -111,7 +113,7 @@ function CourseDetails() {
 
   const handleBuyCourse = () => {
     console.log("token inside courseDetails",token);
-      if (token) {
+      if (user) {
         buyCourse([courseId], user, navigate, dispatch)
         return
       }

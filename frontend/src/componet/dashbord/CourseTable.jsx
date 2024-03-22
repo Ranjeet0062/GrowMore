@@ -19,7 +19,7 @@ function CourseTable({ courses, setCourses }) {
     const [loading, setLoading] = useState(false)
     const [confirmationModal, setConfirmationModal] = useState(null)
     const TRUNCATE_LENGTH = 30
-
+    console.log("token inside coursetable",token)
     const handleCourseDelete = async (courseId) => {
         setLoading(true)
        const toastId= toast.loading("Loading..")
