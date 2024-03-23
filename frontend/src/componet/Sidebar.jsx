@@ -8,8 +8,9 @@ import {VscSettingsGear }from "react-icons/vsc"
 import {LuLogOut } from "react-icons/lu"
 import {logout} from "../services/opration/authApi"
 import { useState,useEffect} from 'react'
+import { setshowSidebar } from '../redux/slices/profile.slice';
 function Sidebar() {
-    const {user}=useSelector((state)=>state.profile);
+    const {user,showSidebar}=useSelector((state)=>state.profile);
     const [isMobile, setIsMobile] = useState(false);
     const dispatch=useDispatch();
     const navigate=useNavigate();
@@ -20,7 +21,7 @@ function Sidebar() {
     }
     useEffect(() => {
         const handleResize = () => {
-          setIsMobile(window.innerWidth < 500); 
+          setIsMobile(window.innerWidth < 620); 
           // Adjust breakpoint as needed
         };
         // Add event listener to detect window resize
@@ -32,14 +33,15 @@ function Sidebar() {
           window.removeEventListener('resize', handleResize);
         };
       }, []);
+      console.log("showsidebar rrrreser",showSidebar)
       return (
         isMobile ? (
-            <div className="flex h-[calc(100vh-3.5rem)] min-w-[220px] flex-col border-r-[1px] border-r-richblack-700 bg-richblack-800 py-10 -translate-x-60 absolute">
+            showSidebar?(<div className={`sidebar flex h-[calc(100vh-3.5rem)] min-w-[220px] flex-col border-r-[1px] border-r-richblack-700 bg-richblack-800   absolute z-20`}>
                 <div className="flex flex-col">
                     {
                         SidebarLink.map((link) => {
                             return link.type && user?.accountType !== link.type ? (null) : (
-                                <SidebarLinkItem link={link} />
+                                <SidebarLinkItem link={link} showSidebar={showSidebar}/>
                             )
                         })
                     }
@@ -66,7 +68,7 @@ function Sidebar() {
                     <LuLogOut />
                     <span>Logout</span>
                 </button>
-            </div>
+            </div>):(<div>hello geeeejjj</div>)
         ) : (
             <div className="flex h-[calc(100vh-3.5rem)] min-w-[220px] flex-col border-r-[1px] border-r-richblack-700 bg-richblack-800 py-10">
                 <div className="flex flex-col">

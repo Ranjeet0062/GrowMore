@@ -1,11 +1,14 @@
 import React from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import * as Icons from "react-icons/vsc"
-function SidebarLinkItem({ link }) {
+import { useDispatch } from 'react-redux'
+import { setshowSidebar } from '../redux/slices/profile.slice'
+function SidebarLinkItem({ link,showSidebar }) {
     const Icon = Icons[link.icon]
     const locaation=useLocation()
+    const dispatch=useDispatch()
     return (
-        <NavLink to={link.path}  className={`relative px-8 py-2 text-sm font-medium ${
+        <NavLink to={link.path} onClick={()=>{dispatch(setshowSidebar(showSidebar))}} className={`relative px-8 py-2 text-sm font-medium ${
             link.path===locaation.pathname
               ? "bg-yellow-800 text-yellow-50"
               : "bg-opacity-0 text-richblack-300"

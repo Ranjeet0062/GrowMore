@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom"
 import useOnClickOutside from "../smallcomponets/useOnClickOutside"
 import { logout } from "../services/opration/authApi"
 
-export default function ProfileDropdown() {
+export default function ProfileDropdown({setIsMenuOpen}) {
   const { user } = useSelector((state) => state.profile)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -30,7 +30,7 @@ export default function ProfileDropdown() {
       </div>
       {open && (
         <div
-          onClick={(e) => e.stopPropagation()}
+          onClick={(e) => {e.stopPropagation(); setIsMenuOpen(false)}}
           className="absolute top-[118%] right-0 z-[1000] divide-y-[1px] divide-richblack-700 overflow-hidden rounded-md border-[1px] border-richblack-700 bg-richblack-800"
           ref={ref}
         >
