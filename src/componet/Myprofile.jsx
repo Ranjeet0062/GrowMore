@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import IconBtn from './IconBtn';
@@ -7,6 +7,33 @@ import { formattedDate } from "../utils/formatDate"
 function Myprofile() {
   const { user } = useSelector((sate) => sate.profile);
   const navigate = useNavigate()
+  useEffect(() => {
+    function checkTokenInCookie() {
+      // Get all cookies
+      const cookies = document.cookie.split(';');
+
+      // Loop through cookies to find the one containing the token
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+
+        // Check if the cookie contains the token
+        if (cookie.startsWith('token=')) {
+          // Token exists in the cookie
+          return true;
+        }
+      }
+
+      // Token does not exist in the cookie
+      return false;
+    }
+
+    // Example usage
+    if (checkTokenInCookie()) {
+      console.log('Token exists in the cookie');
+    } else {
+      console.log('Token does not exist in the cookie');
+    }
+  }, [])
   return (
     <>
       <h1 className="mb-14 text-3xl font-medium text-richblack-5">
@@ -49,8 +76,8 @@ function Myprofile() {
         </div>
         <p
           className={`${user?.additionalDetails?.about
-              ? "text-richblack-5"
-              : "text-richblack-400"
+            ? "text-richblack-5"
+            : "text-richblack-400"
             } text-sm font-medium`}
         >
           {user?.additionalDetails?.about ?? "Write Something About Yourself"}
