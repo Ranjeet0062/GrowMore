@@ -33,7 +33,7 @@ function Navbar() {
     // const subLinks = ["mernstack", "webdev", "python"]
     useEffect(()=>{
         
-        axios.get("http://localhost:3000/category/api/showAllCategories").then((res)=>{
+        axios.get(`${import.meta.env.VITE_BASE_URL}/category/api/showAllCategories`).then((res)=>{
             setsubLink(res.data.data)
         }).catch((error)=>{
             console.log("error",error)

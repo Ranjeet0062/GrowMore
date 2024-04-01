@@ -16,7 +16,7 @@ function UpdatePassword() {
         e.preventDefault();
         dispatch(setLoading(true))
        const toastId= toast.loading("Loading..")
-       await axios.put("http://localhost:3000/user/api/restPassword",
+       await axios.put(`${import.meta.env.VITE_BASE_URL}/user/api/restPassword`,
         {password,confirmpassword,token},{withCredentials:true})
         .then((res)=>{
             res.data.success?( toast.success("Password updated")):( toast.error("token expire"))
