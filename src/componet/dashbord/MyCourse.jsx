@@ -5,21 +5,46 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import CourseTable from './CourseTable'
 import { useDispatch } from 'react-redux'
-import {setCourse, setEditCourse} from "../../redux/slices/course.slice"
+import { setCourse, setEditCourse } from "../../redux/slices/course.slice"
 function MyCourse() {
     const navigate = useNavigate()
-    const dispatch=useDispatch();
+    const dispatch = useDispatch();
     const [courseInMycuorse, setCourseInMycourse] = useState([]);
     const getInstructor = async () => {
-        await axios.get(`${import.meta.env.VITE_BASE_URL}/course/api/getInstructorCourses`,{withCredentials:true})
+        await axios.get(`${import.meta.env.VITE_BASE_URL}/course/api/getInstructorCourses`, { withCredentials: true })
             .then((res) => {
                 setCourseInMycourse(res.data.data);
-               
+
             }).catch((error) => {
                 console.log("something went to wrong in mycourse...", error)
             })
     }
     useEffect(() => {
+        function checkTokenInCookie() {
+            // Get all cookies
+            const cookies = document.cookie.split(';');
+
+            // Loop through cookies to find the one containing the token
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+
+                // Check if the cookie contains the token
+                if (cookie.startsWith('token=')) {
+                    // Token exists in the cookie
+                    return true;
+                }
+            }
+
+            // Token does not exist in the cookie
+            return false;
+        }
+
+        // Example usage
+        if (checkTokenInCookie()) {
+            console.log('Token exists in the cookie');
+        } else {
+            console.log('Token does not exist in the cookie');
+        }
         getInstructor();
     }, [])
     return (
@@ -29,7 +54,7 @@ function MyCourse() {
                     My Profile
                 </h1>
                 <div>
-                    <IconBtn text={"Add Course"} onclick={()=>{navigate("/dashboard/add-course")}} >
+                    <IconBtn text={"Add Course"} onclick={() => { navigate("/dashboard/add-course") }} >
                         <HiOutlinePlus />
                     </IconBtn>
                 </div>
