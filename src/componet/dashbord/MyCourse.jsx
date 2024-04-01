@@ -13,6 +13,7 @@ function MyCourse() {
     const getInstructor = async () => {
         await axios.get(`${import.meta.env.VITE_BASE_URL}/course/api/getInstructorCourses`, { withCredentials: true })
             .then((res) => {
+                console.log("res inside my profile",res.data)
                 setCourseInMycourse(res.data.data);
 
             }).catch((error) => {

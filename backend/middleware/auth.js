@@ -2,9 +2,9 @@ require("dotenv").config();
 const jwt=require("jsonwebtoken")
 exports.auth = (req, res, next) => {
   try {
-    console.log("inside auth middleware",req.cookies)
+    console.log("inside auth middleware and cookie is",req.cookies)
     const token = req.body.token || req.cookies.token|| (req.header("Authorization") || "").replace("Bearer ", "")
-    console.log(typeof token)
+    console.log("type of token and token is ",typeof token," ",token)
     console.log("auth middware is start");
 
     if (!token) {
@@ -19,9 +19,10 @@ exports.auth = (req, res, next) => {
       const decode = jwt.verify(token, process.env.JWT_SECRET);
       req.user = decode;
     } catch (e) {
-      console.log("error wit jwt",e)
+      console.log("error with jwt",e)
       return res.status(401).json({
         success: false,
+        state:"middelware",
         message: "token is invalid",
       });
     }
