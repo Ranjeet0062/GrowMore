@@ -22,6 +22,7 @@ export function updateDisplayPicture(token, formData) {
         dispatch(setUser(res?.data?.data));
         localStorage.setItem("user", JSON.stringify(res.data.data))
       }).catch((error) => {
+        console.log("error accure in update display",error)
         toast.error("Could Not Update Display Picture");
       });
 
