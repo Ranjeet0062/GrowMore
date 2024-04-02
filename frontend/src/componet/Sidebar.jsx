@@ -36,7 +36,7 @@ function Sidebar() {
       console.log("showsidebar rrrreser",showSidebar)
       return (
         isMobile ? (
-            showSidebar?(<div className={`sidebar flex h-[calc(100vh-3.5rem)] min-w-[220px] flex-col border-r-[1px] border-r-richblack-700 bg-richblack-800   absolute z-20`}>
+            showSidebar&&(<div className={`sidebar flex h-[calc(100vh-3.5rem)] min-w-[220px] flex-col border-r-[1px] border-r-richblack-700 bg-richblack-800   absolute z-20`}>
                 <div className="flex flex-col">
                     {
                         SidebarLink.map((link) => {
@@ -68,7 +68,7 @@ function Sidebar() {
                     <LuLogOut />
                     <span>Logout</span>
                 </button>
-            </div>):(<div>hello geeeejjj</div>)
+            </div>)
         ) : (
             <div className="flex h-[calc(100vh-3.5rem)] min-w-[220px] flex-col border-r-[1px] border-r-richblack-700 bg-richblack-800 py-10">
                 <div className="flex flex-col">

@@ -29,12 +29,12 @@ function ContactForm() {
     e.preventDefault();
   }
   return (
-    <div className='w-[50%] flex flex-col items-center font-semibold text-xl border border-richblack-600 rounded-2xl p-3'>
+    <div className='w-full md:w-[50%] flex flex-col items-center font-semibold text-xl border border-richblack-600 rounded-2xl p-5 mt-4'>
       <h className=" font-bold text-4xl">Get in touch</h>
       <form className="flex flex-col w-full gap-y-4 mt-6" onSubmit={(e) => {
         hendalOnsubmit(e)
       }}>
-        <div className='w-full flex gap-3 text-richblack-5'>
+        <div className='w-full md:flex gap-3 text-richblack-5'>
           <label className='w-[50%]'>
             <p>
               first name
