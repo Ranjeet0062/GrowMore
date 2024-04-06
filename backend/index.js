@@ -12,7 +12,7 @@ const fileUpload = require("express-fileupload");
 const cookieParser=require("cookie-parser")
 const {cloudinaryConnect}=require("./config/cloudnary.js")
 const app=express();
-app.use(cors({credentials: true,   origin: ['https://grow-more-the-leaning-paltform.vercel.app', 'http://localhost:5173']
+app.use(cors({credentials: true,   origin: ['https://grow-more-the-leaning-paltform.vercel.app', 'http://localhost:5173GI']
 }));
 app.use(express.json());
 app.use(cookieParser());
